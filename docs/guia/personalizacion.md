@@ -23,6 +23,7 @@ math = true                # fórmulas LaTeX con MathJax (requiere pymdownx.arit
 toc = false                # sin índice lateral en ninguna página
 footer_nav = true          # «anterior / siguiente» al pie (por defecto, no)
 framed = true              # el artículo en un panel sobre fondo gris
+transitions = false        # sin transiciones entre páginas (por defecto, sí)
 header_nav = [
     { title = "Guía", url = "guia/" },
     { title = "API", url = "api/" },
@@ -31,8 +32,10 @@ header_nav = [
 
 | Opción | Por defecto | Notas |
 |---|---|---|
-| `primary` | `#164E63` | La escala clara y oscura se calcula con `color-mix()` |
-| `accent` | `#0F766E` | |
+| `primary` | `#164E63` | Color principal en modo claro: cabecera, enlaces, botones. Los fondos suaves salen de él con `color-mix()` |
+| `accent` | `#0F766E` | Acento en modo claro: foco, enlaces al pasar, tareas hechas |
+| `primary_dark` | `#66B7CC` | Principal en modo oscuro. Si la web da `primary` y no este, se deriva: `primary` mezclado al 50 % con blanco |
+| `accent_dark` | `#2CB5A5` | Acento en modo oscuro; se deriva de `accent` igual que el anterior |
 | `font_text` | Source Serif 4 | Las fuentes que no trae el tema las carga la web |
 | `font_ui` | Manrope | |
 | `font_code` | JetBrains Mono | |
@@ -42,7 +45,15 @@ header_nav = [
 | `toc` | `true` | `false` quita el índice lateral de todas las páginas y centra el artículo, como `hide: [toc]` en cada una |
 | `footer_nav` | `false` | Muestra «anterior / siguiente» al pie. La portada nunca lo lleva |
 | `framed` | `false` | El artículo va en un panel con fondo, borde y relleno propios sobre un fondo de página más oscuro. La portada no |
+| `transitions` | `true` | Transiciones suaves entre páginas y la imagen de un enlace que «vuela» a la de la página de destino. Ver [Páginas](paginas.md#transiciones-entre-páginas) |
 | `math` | `false` | Carga MathJax desde unpkg.com; activa `pymdownx.arithmatex` con `generic = true` |
+
+!!! warning "Contraste de los colores propios"
+
+    El tema comprueba el contraste de sus colores por defecto y de los oscuros
+    que deriva de colores de marca habituales. Un color propio debe comprobarse:
+    `primary` necesita un contraste de 4,5:1 sobre blanco para los enlaces y el
+    texto de la cabecera, y un `primary_dark` propio, 4,5:1 sobre `#111C24`.
 
 !!! warning "Fuentes propias"
 

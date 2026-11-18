@@ -13,9 +13,17 @@ Formato de [Keep a Changelog](https://keepachangelog.com/es-ES/1.1.0/) y version
   índice lateral de todas las páginas y centra el artículo; `framed = true` pone
   el artículo en un panel sobre un fondo de página más oscuro; `footer_nav = true`
   muestra «anterior / siguiente» al pie.
+- Transiciones suaves entre páginas (View Transitions entre documentos), con la
+  imagen de un enlace que se desplaza hasta la de la página de destino;
+  `transitions = false` las quita.
+- Sin `primary_dark` ni `accent_dark`, el modo oscuro los deriva de los colores
+  claros de la web.
 
 ### Cambiado
 
+- `navigation.instant` deja de estar entre las features por defecto: anula las
+  transiciones entre páginas.
+- La primera imagen de la portada se carga con prioridad en lugar de diferirse.
 - «Anterior / siguiente» al pie queda oculto por defecto y nunca aparece en la
   portada.
 

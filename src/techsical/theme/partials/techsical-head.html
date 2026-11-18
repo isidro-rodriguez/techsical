@@ -11,7 +11,8 @@
   math (true carga MathJax para las fórmulas LaTeX de pymdownx.arithmatex),
   toc (false quita el índice lateral de todas las páginas), footer_nav (true
   muestra «anterior / siguiente» al pie; por defecto no), framed (true pone el
-  artículo en un panel) y header_nav (ver partials/header.html).
+  artículo en un panel), transitions (false quita las transiciones entre
+  páginas) y header_nav (ver partials/header.html).
 -#}
 {% set tx = config.extra.techsical | d({}, true) %}
 <link rel="stylesheet" href="{{ 'assets/stylesheets/fonts.css' | url }}">
@@ -23,6 +24,10 @@
 {% endif %}
 {% if not tx.footer_nav %}
   <link rel="stylesheet" href="{{ 'assets/stylesheets/options/no-footer-nav.css' | url }}">
+{% endif %}
+{% if tx.transitions != false %}
+  <link rel="stylesheet" href="{{ 'assets/stylesheets/options/transitions.css' | url }}">
+  <script src="{{ 'assets/javascripts/transitions.js' | url }}"></script>
 {% endif %}
 {% if tx.framed %}
   <link rel="stylesheet" href="{{ 'assets/stylesheets/options/framed.css' | url }}">
@@ -43,6 +48,15 @@
     {% set _.css = _.css ~ var ~ ":" ~ tx[key] ~ ";" %}
   {% endif %}
 {% endfor %}
+{#- Sin primary_dark/accent_dark propios, el modo oscuro deriva los suyos del
+    color claro de la web (50 % con blanco: contraste ≥ 4,5:1 sobre el fondo
+    oscuro con colores de marca habituales; ver tests/test_contrast.py). -#}
+{% if tx.primary and not tx.primary_dark %}
+  {% set _.css = _.css ~ "--tx-brand-primary-dark:color-mix(in oklab, " ~ tx.primary ~ " 50%, white);" %}
+{% endif %}
+{% if tx.accent and not tx.accent_dark %}
+  {% set _.css = _.css ~ "--tx-brand-accent-dark:color-mix(in oklab, " ~ tx.accent ~ " 50%, white);" %}
+{% endif %}
 {% if _.css %}
   <style>:root{{ "{" }}{{ _.css }}{{ "}" }}</style>
 {% endif %}

@@ -27,6 +27,7 @@ header_nav = [        # opcional: barra de enlaces bajo la cabecera
 toc = false           # opcional: sin índice lateral en ninguna página
 framed = true         # opcional: el artículo en un panel
 footer_nav = true     # opcional: «anterior / siguiente» al pie
+transitions = false   # opcional: sin transiciones entre páginas
 ```
 
 Todas las opciones, la portada (`template: home.html`) y los tipos de página están en
