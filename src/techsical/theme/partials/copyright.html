@@ -1,0 +1,21 @@
+{#-
+  techsical: copia de partials/copyright.html de Zensical (zensical-ui 0.0.42)
+  que añade la dirección de la web (site_url), como el pie de una publicación.
+-#}
+<div class="md-copyright">
+  {% if config.site_url %}
+    <div class="tx-footer__url">
+      {{ config.site_url | replace("https://", "") | replace("http://", "") | trim("/") }}
+    </div>
+  {% endif %}
+  {% if config.copyright %}
+    <div class="md-copyright__highlight">
+      {{ config.copyright }}
+    </div>
+  {% endif %}
+  {% if not config.extra.generator == false %}
+    Hecho con
+    <a href="https://zensical.org/" target="_blank" rel="noopener">Zensical</a>
+    y <a href="https://github.com/isidro-rodriguez/techsical" target="_blank" rel="noopener">techsical</a>
+  {% endif %}
+</div>

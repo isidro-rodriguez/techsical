@@ -1,0 +1,21 @@
+# Registro de cambios
+
+Formato de [Keep a Changelog](https://keepachangelog.com/es-ES/1.1.0/) y versiones
+[SemVer](https://semver.org/lang/es/).
+
+## [0.1.0] - 2026-11-18
+
+### Añadido
+
+- Tema `techsical` que extiende el de Zensical (`zensical>=0.1.2,<0.2`).
+- Colores en capas (primitivas, marca, semánticas por esquema) con tema claro y
+  oscuro propios; contraste WCAG AA comprobado en los tests.
+- Fuentes propias, sin Google Fonts: Source Serif 4 (texto y títulos), Manrope
+  (interfaz, tablas y pies) y JetBrains Mono (código).
+- Cabecera editorial con la marca (nombre y descripción) y navegación propia
+  opcional (`header_nav`).
+- Portada `home.html` con entradilla, botones y hasta dos imágenes.
+- Artículos con entradilla (`{ .lead }`), índice lateral opcional, imágenes
+  centradas sin ampliar, tablas a todo el ancho y notas planas por estado.
+- Personalización en `[project.extra.techsical]`: colores, fuentes, anchos,
+  favicons, manifiesto y color del navegador.

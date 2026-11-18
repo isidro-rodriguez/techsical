@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 560 360" width="560" height="360" font-family="Manrope, sans-serif" font-size="15">
+  <title>Capas del tema techsical</title>
+  <rect width="560" height="360" fill="#f8fafc"/>
+  <g stroke="#164e63" stroke-width="1.5" fill="#fff">
+    <rect x="40" y="30" width="480" height="52" rx="4"/>
+    <rect x="40" y="100" width="480" height="52" rx="4"/>
+    <rect x="40" y="170" width="480" height="52" rx="4" fill="#d5e7ec"/>
+    <rect x="40" y="240" width="480" height="52" rx="4"/>
+  </g>
+  <g fill="#0f172a" text-anchor="middle">
+    <text x="280" y="61">Web: contenido + [project.extra.techsical]</text>
+    <text x="280" y="131">Hoja propia de la web (extra_css)</text>
+    <text x="280" y="201" font-weight="700">techsical: variables, componentes, fuentes</text>
+    <text x="280" y="271">Tema de Zensical (plantillas base)</text>
+  </g>
+  <text x="280" y="330" fill="#475569" text-anchor="middle" font-size="13">Cada capa pisa a la de debajo</text>
+</svg>

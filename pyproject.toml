@@ -1,0 +1,111 @@
+[project]
+name = "techsical"
+version = "0.1.0"
+description = "Tema editorial técnico para Zensical: tipografía serif de lectura, interfaz sans y colores personalizables."
+readme = "README.md"
+requires-python = ">=3.12"
+license = "MIT"
+license-files = ["LICENSE"]
+authors = [{ name = "Isidro Rodríguez" }]
+keywords = ["zensical", "theme", "documentation", "mkdocs"]
+classifiers = [
+  "Development Status :: 3 - Alpha",
+  "Framework :: MkDocs",
+  "Intended Audience :: Developers",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3.13",
+  "Programming Language :: Python :: 3.14",
+  "Topic :: Documentation",
+  "Typing :: Typed",
+]
+# El tema extiende el de Zensical. Rango estrecho a propósito: Zensical avisa de que
+# su sistema de temas cambiará con los componentes, y cada versión nueva puede tocar
+# las plantillas que el tema sobrescribe (ver AGENTS.md).
+dependencies = ["zensical>=0.1.2,<0.2"]
+
+[project.urls]
+Changelog = "https://github.com/isidro-rodriguez/techsical/blob/main/CHANGELOG.md"
+Documentation = "https://isidro-rodriguez.github.io/techsical/"
+Repository = "https://github.com/isidro-rodriguez/techsical"
+
+# Zensical carga los temas instalables por este grupo, el mismo que MkDocs.
+[project.entry-points."mkdocs.themes"]
+techsical = "techsical:theme"
+
+[dependency-groups]
+dev = [
+  "pytest>=9.2.0",
+  "ruff>=0.17.5",
+  "ty>=0.0.105",
+]
+
+[build-system]
+requires = ["uv_build>=0.11.7,<0.14.0"]
+build-backend = "uv_build"
+
+[tool.uv.build-backend]
+module-name = "techsical"
+
+# --- Poe the Poet (opcional) -------------------------------------------------
+# Atajos para quien tenga `poe` instalado globalmente (`uv tool install poethepoet`).
+# No es dependencia del proyecto: todo se puede ejecutar también con `uv run`.
+[tool.poe]
+executor.type = "uv"
+
+[tool.poe.tasks.check]
+help = "Formato, lint, tipos y tests (lo mismo que la CI)"
+sequence = ["ruff format --check .", "ruff check .", "ty check", "pytest"]
+default_item_type = "cmd"
+
+[tool.poe.tasks.fix]
+help = "Aplica el formato y las correcciones automáticas de Ruff"
+sequence = ["ruff format .", "ruff check --fix ."]
+default_item_type = "cmd"
+
+[tool.poe.tasks.serve]
+help = "Vista previa local de la web de demostración"
+cmd = "zensical serve"
+
+[tool.poe.tasks.build]
+help = "Construye la web de demostración en site/"
+cmd = "zensical build"
+
+[tool.poe.tasks.shots]
+help = "Capturas de la web de demostración (claro/oscuro, móvil/escritorio)"
+cmd = "uv run --with playwright python scripts/capturas.py"
+
+# --- pytest ------------------------------------------------------------------
+[tool.pytest.ini_options]
+addopts = ["-ra", "--strict-markers", "--import-mode=importlib"]
+testpaths = ["tests"]
+
+# --- Ruff --------------------------------------------------------------------
+[tool.ruff]
+line-length = 88
+target-version = "py312"
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "N", "UP", "B", "SIM", "C4", "PERF", "PTH", "RUF", "D"]
+
+[tool.ruff.lint.pydocstyle]
+convention = "google"
+
+[tool.ruff.lint.isort]
+known-first-party = ["techsical"]
+
+[tool.ruff.lint.per-file-ignores]
+"tests/**" = ["D"]
+
+# --- ty ----------------------------------------------------------------------
+[tool.ty.environment]
+python-version = "3.12"
+
+[tool.ty.src]
+# scripts/capturas.py usa Playwright, que se instala solo al ejecutarlo
+# (`uv run --with playwright`), no en el entorno del proyecto.
+include = ["src", "tests"]
+
+[tool.ty.rules]
+possibly-unresolved-reference = "error"
+unused-ignore-comment = "warn"

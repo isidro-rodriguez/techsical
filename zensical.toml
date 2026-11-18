@@ -1,0 +1,72 @@
+# zensical.toml
+# Web de demostración y guía de techsical, construida con el propio tema.
+#
+#   uv run zensical serve   # vista previa en http://localhost:8000
+#   uv run zensical build   # genera el sitio estático en site/
+
+[project]
+site_name = "techsical"
+site_description = "Tema editorial técnico para Zensical"
+site_author = "Isidro Rodríguez"
+site_url = "https://isidro-rodriguez.github.io/techsical/"
+repo_url = "https://github.com/isidro-rodriguez/techsical"
+repo_name = "isidro-rodriguez/techsical"
+edit_uri = "edit/main/docs/"
+copyright = "Copyright &copy; 2026 Isidro Rodríguez"
+docs_dir = "docs"
+site_dir = "site"
+
+nav = [
+    { "Inicio" = "index.md" },
+    { "Guía" = [
+        "guia/index.md",
+        "guia/instalacion.md",
+        "guia/personalizacion.md",
+        "guia/paginas.md",
+    ] },
+    { "Muestrario" = "muestrario.md" },
+]
+
+[project.theme]
+name = "techsical"
+logo = "assets/images/logo.svg"
+
+[project.extra.techsical]
+header_nav = [
+    { title = "Guía", url = "guia/" },
+    { title = "Muestrario", url = "muestrario/" },
+]
+
+[[project.extra.social]]
+icon = "fontawesome/brands/github"
+link = "https://github.com/isidro-rodriguez/techsical"
+name = "Código fuente en GitHub"
+
+[project.markdown_extensions]
+abbr = {}
+admonition = {}
+attr_list = {}
+def_list = {}
+footnotes = {}
+md_in_html = {}
+tables = {}
+toc.permalink = true
+toc.slugify = { object = "pymdownx.slugs.slugify", kwds = { case = "lower" } }
+pymdownx.arithmatex.generic = true
+pymdownx.betterem = {}
+pymdownx.blocks.caption = {}
+pymdownx.caret = {}
+pymdownx.details = {}
+pymdownx.highlight.anchor_linenums = true
+pymdownx.highlight.line_spans = "__span"
+pymdownx.highlight.pygments_lang_class = true
+pymdownx.inlinehilite = {}
+pymdownx.keys = {}
+pymdownx.mark = {}
+pymdownx.smartsymbols = {}
+pymdownx.superfences.custom_fences = [
+    { name = "mermaid", class = "mermaid", format = "pymdownx.superfences.fence_code_format" },
+]
+pymdownx.tabbed.alternate_style = true
+pymdownx.tasklist.custom_checkbox = true
+pymdownx.tilde = {}
