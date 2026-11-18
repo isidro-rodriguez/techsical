@@ -3,6 +3,27 @@
 Formato de [Keep a Changelog](https://keepachangelog.com/es-ES/1.1.0/) y versiones
 [SemVer](https://semver.org/lang/es/).
 
+## [Sin publicar]
+
+## [0.2.0] - 2026-11-18
+
+### Añadido
+
+- Opciones de maquetación en `[project.extra.techsical]`: `toc = false` quita el
+  índice lateral de todas las páginas y centra el artículo; `framed = true` pone
+  el artículo en un panel sobre un fondo de página más oscuro; `footer_nav = true`
+  muestra «anterior / siguiente» al pie.
+
+### Cambiado
+
+- «Anterior / siguiente» al pie queda oculto por defecto y nunca aparece en la
+  portada.
+
+### Corregido
+
+- En pantallas estrechas, el artículo sin índice lateral conserva los márgenes
+  de Zensical en lugar de pegarse a los bordes.
+
 ## [0.1.0] - 2026-11-18
 
 ### Añadido
