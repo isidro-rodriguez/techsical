@@ -5,6 +5,20 @@ Formato de [Keep a Changelog](https://keepachangelog.com/es-ES/1.1.0/) y version
 
 ## [Sin publicar]
 
+## [0.3.0] - 2026-11-18
+
+### Añadido
+
+- Estilo para la referencia de la API de mkdocstrings: nombres en
+  monoespaciada, objetos separados por líneas, etiquetas y títulos de sección
+  como rótulos y símbolos con los colores del tema. La demostración incluye la
+  API de un paquete de ejemplo y una guía para configurarla.
+
+### Corregido
+
+- «Anterior / siguiente» al pie seguía visible con `footer_nav` desactivado:
+  la regla de Zensical era más específica.
+
 ## [0.2.0] - 2026-11-18
 
 ### Añadido

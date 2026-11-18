@@ -30,7 +30,8 @@ footer_nav = true     # opcional: «anterior / siguiente» al pie
 transitions = false   # opcional: sin transiciones entre páginas
 ```
 
-Todas las opciones, la portada (`template: home.html`) y los tipos de página están en
+Todas las opciones, la portada (`template: home.html`), los tipos de página y la
+referencia de la API con mkdocstrings están en
 la [guía](https://isidro-rodriguez.github.io/techsical/guia/).
 
 ## Desarrollo

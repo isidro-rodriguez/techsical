@@ -34,6 +34,7 @@ PAGES = {
     "muestrario": "muestrario/",
     "listas": "listas/",
     "formulas": "formulas/",
+    "api": "api/obra/hormigon/",
 }
 UNPKG = re.compile(r"https://unpkg\.com/(@?[^@/]+(?:/[^@/]+)?)@[^/]+/(.+)")
 SIZES = {"escritorio": (1440, 900), "movil": (390, 844)}
