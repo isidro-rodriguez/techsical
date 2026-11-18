@@ -35,7 +35,7 @@ header_nav = [
 | `font_code` | JetBrains Mono | |
 | `content_max` | `720px` | Texto, tablas y código comparten este ancho |
 | `figure_max` | `640px` | Las imágenes nunca se amplían por encima de su tamaño |
-| `header_nav` | — | Enlaces propios de la cabecera; el menú lateral sigue igual |
+| `header_nav` | — | Barra de enlaces bajo la cabecera; el menú lateral sigue igual |
 | `math` | `false` | Carga MathJax desde unpkg.com; activa `pymdownx.arithmatex` con `generic = true` |
 
 !!! warning "Fuentes propias"

@@ -25,6 +25,7 @@ nav = [
         "guia/paginas.md",
     ] },
     { "Muestrario" = "muestrario.md" },
+    { "Listas y pestañas" = "listas.md" },
     { "Fórmulas y diagramas" = "formulas.md" },
 ]
 

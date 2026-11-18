@@ -1,7 +1,7 @@
 {#-
   techsical: copia de partials/header.html de Zensical (zensical-ui 0.0.42) con
   dos cambios, marcados con «techsical»: la marca (nombre | descripción) en el
-  primer tema del título y la navegación propia de la cabecera
+  primer tema del título y, tras </header>, la barra de navegación propia
   ([project.extra.techsical] header_nav), independiente del menú lateral.
 -#}
 {% set class = "md-header" %}
@@ -42,26 +42,6 @@
         </div>
       </div>
     </div>
-    {#- techsical: navegación propia de la cabecera -#}
-    {% set tx = config.extra.techsical | d({}, true) %}
-    {% if tx.header_nav %}
-      <nav class="tx-header-nav" aria-label="{{ config.site_name | e }}">
-        <ul class="tx-header-nav__list">
-          {% for item in tx.header_nav %}
-            {% set target = item.url | url %}
-            {% set prefix = item.url | replace("./", "") %}
-            {% set active = page and page.url and prefix and not "://" in prefix
-              and page.url[:prefix | length] == prefix %}
-            <li>
-              <a class="tx-header-nav__link{% if active %} tx-header-nav__link--active{% endif %}"
-                 href="{{ target }}"{% if active %} aria-current="page"{% endif %}>
-                {{- item.title -}}
-              </a>
-            </li>
-          {% endfor %}
-        </ul>
-      </nav>
-    {% endif %}
     {% if config.theme.palette %}
       {% if not config.theme.palette is mapping %}
         {% include "partials/palette.html" %}
@@ -96,3 +76,23 @@
     {% endif %}
   {% endif %}
 </header>
+{#- techsical: barra de navegación propia bajo la cabecera -#}
+{% set tx = config.extra.techsical | d({}, true) %}
+{% if tx.header_nav %}
+  <nav class="tx-subnav" aria-label="{{ config.site_name | e }}">
+    <ul class="tx-subnav__list md-grid">
+      {% for item in tx.header_nav %}
+        {% set target = item.url | url %}
+        {% set prefix = item.url | replace("./", "") %}
+        {% set active = page and page.url and prefix and not "://" in prefix
+          and page.url[:prefix | length] == prefix %}
+        <li>
+          <a class="tx-subnav__link{% if active %} tx-subnav__link--active{% endif %}"
+             href="{{ target }}"{% if active %} aria-current="page"{% endif %}>
+            {{- item.title -}}
+          </a>
+        </li>
+      {% endfor %}
+    </ul>
+  </nav>
+{% endif %}

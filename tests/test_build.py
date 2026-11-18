@@ -61,15 +61,17 @@ def test_cabecera_enlaza_favicons_manifiesto_y_color(demo: Path) -> None:
     assert '<meta name="theme-color" content="#164e63">' in html
 
 
-def test_marca_y_navegacion_propia_de_la_cabecera(demo: Path) -> None:
+def test_marca_y_barra_de_navegacion_bajo_la_cabecera(demo: Path) -> None:
     html = _html(demo, "guia/instalacion")
     assert 'class="tx-brand__name">techsical<' in html
     assert "Tema editorial técnico para Zensical" in html
     active = re.search(
-        r'tx-header-nav__link tx-header-nav__link--active"\s+href="([^"]+)"', html
+        r'tx-subnav__link tx-subnav__link--active"\s+href="([^"]+)"', html
     )
     assert active is not None
     assert active.group(1) == "../"
+    # La barra va fuera de la banda de la cabecera, justo después.
+    assert html.index("</header>") < html.index('class="tx-subnav"')
 
 
 def test_portada_con_hero_e_imagenes(demo: Path) -> None:

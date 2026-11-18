@@ -32,6 +32,7 @@ PAGES = {
     "instalacion": "guia/instalacion/",
     "paginas": "guia/paginas/",
     "muestrario": "muestrario/",
+    "listas": "listas/",
     "formulas": "formulas/",
 }
 UNPKG = re.compile(r"https://unpkg\.com/(@?[^@/]+(?:/[^@/]+)?)@[^/]+/(.+)")

@@ -12,12 +12,13 @@ Formato de [Keep a Changelog](https://keepachangelog.com/es-ES/1.1.0/) y version
   oscuro propios; contraste WCAG AA comprobado en los tests.
 - Fuentes propias, sin Google Fonts: Source Serif 4 (texto y títulos), Manrope
   (interfaz, tablas y pies) y JetBrains Mono (código).
-- Cabecera editorial con la marca (nombre y descripción) y navegación propia
-  opcional (`header_nav`).
+- Cabecera editorial con la marca (nombre y descripción) y, debajo, una barra de
+  navegación propia opcional (`header_nav`).
 - Portada `home.html` con entradilla, botones y hasta dos imágenes.
 - Artículos con entradilla (`{ .lead }`), índice lateral opcional, imágenes
   centradas sin ampliar, tablas a todo el ancho y notas planas por estado.
 - Personalización en `[project.extra.techsical]`: colores, fuentes, anchos,
   favicons, manifiesto y color del navegador.
+- Estilo propio para listas de definiciones, pestañas y listas de tareas.
 - Fórmulas LaTeX con MathJax (`math = true`) y diagramas Mermaid con los colores
   del tema.

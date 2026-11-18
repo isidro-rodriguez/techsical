@@ -364,41 +364,45 @@ body {
   -webkit-box-orient: vertical;
 }
 
-/* Navegación propia de la cabecera (extra.techsical.header_nav). */
-.tx-header-nav {
-  display: none;
+/* Barra de navegación propia bajo la cabecera (extra.techsical.header_nav).
+   No es fija: se va al desplazar, como las pestañas de Zensical. */
+.tx-subnav {
+  font-family: var(--tx-font-ui);
+  background-color: var(--tx-surface-1);
+  border-bottom: var(--tx-rule) solid var(--tx-border);
 }
 
-.tx-header-nav__list {
+.tx-subnav__list {
   display: flex;
-  gap: var(--tx-space-1);
-  margin: 0;
-  padding: 0;
+  gap: var(--tx-space-6);
+  margin-block: 0;
+  padding-block: 0;
+  overflow-x: auto;
   list-style: none;
+  scrollbar-width: none;
 }
 
-.tx-header-nav__link {
+.tx-subnav__list > li {
+  flex-shrink: 0;
+}
+
+.tx-subnav__link {
   display: block;
-  padding: var(--tx-space-1) var(--tx-space-3);
-  font-size: 0.7rem;
+  padding: var(--tx-space-3) 0 calc(var(--tx-space-3) - 2px);
+  font-size: var(--tx-size-small);
   font-weight: 600;
-  color: var(--tx-header-fg-muted);
-  border-radius: var(--tx-radius);
-  transition: color var(--tx-motion), background-color var(--tx-motion);
+  color: var(--tx-text-secondary);
+  border-bottom: 2px solid transparent;
+  transition: color var(--tx-motion), border-color var(--tx-motion);
 }
 
-.tx-header-nav__link:hover,
-.tx-header-nav__link:focus-visible,
-.tx-header-nav__link--active {
-  color: var(--tx-header-fg);
-  background-color: color-mix(in oklab, var(--tx-header-fg) 12%, transparent);
+.tx-subnav__link:is(:hover, :focus-visible) {
+  color: var(--tx-primary);
 }
 
-@media screen and (min-width: 60em) {
-  .tx-header-nav {
-    display: block;
-    margin-right: var(--tx-space-4);
-  }
+.tx-subnav__link--active {
+  color: var(--tx-primary);
+  border-bottom-color: var(--tx-primary);
 }
 
 @media screen and (max-width: 44.9375em) {
@@ -710,6 +714,74 @@ body .md-main__inner > .md-sidebar--secondary[hidden] ~ .md-content > .md-path {
   --tx-adm-bg: var(--tx-primary-soft);
   --tx-adm-fg: var(--tx-text);
   --tx-adm-icon: var(--tx-primary);
+}
+
+/* --- Listas de definiciones ---------------------------------------------- */
+
+.md-typeset dl {
+  margin-block: var(--tx-space-6);
+}
+
+.md-typeset dt {
+  margin-top: var(--tx-space-4);
+  font-weight: 700;
+  color: var(--tx-text);
+}
+
+.md-typeset dt:first-child {
+  margin-top: 0;
+}
+
+.md-typeset dd {
+  margin: var(--tx-space-1) 0 0;
+  margin-inline-start: 0;
+  padding-left: var(--tx-space-4);
+  color: var(--tx-text-secondary);
+  border-left: 2px solid var(--tx-border-strong);
+}
+
+.md-typeset dd > :last-child {
+  margin-bottom: 0;
+}
+
+/* --- Pestañas (pymdownx.tabbed) -------------------------------------------- */
+
+.md-typeset .tabbed-set {
+  margin-block: var(--tx-space-6);
+}
+
+.md-typeset .tabbed-labels {
+  box-shadow: 0 calc(-1 * var(--tx-rule)) var(--tx-border-strong) inset;
+}
+
+.md-typeset .tabbed-labels > label {
+  font-family: var(--tx-font-ui);
+  font-size: var(--tx-size-small);
+  font-weight: 600;
+  color: var(--tx-text-muted);
+}
+
+.md-typeset .tabbed-labels > label:hover {
+  color: var(--tx-primary);
+}
+
+.js .md-typeset .tabbed-labels::before {
+  height: 2px;
+  background: var(--tx-primary);
+}
+
+.md-typeset .tabbed-content {
+  padding-top: var(--tx-space-2);
+}
+
+/* --- Listas de tareas (pymdownx.tasklist) ---------------------------------- */
+
+.md-typeset .task-list-indicator::before {
+  background-color: var(--tx-border-strong);
+}
+
+.md-typeset [type="checkbox"]:checked + .task-list-indicator::before {
+  background-color: var(--tx-accent);
 }
 
 /* --- Pestañas, etiquetas, botones ----------------------------------------- */
