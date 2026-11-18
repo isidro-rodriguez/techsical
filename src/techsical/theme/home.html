@@ -44,7 +44,13 @@
           <div class="tx-hero__media{% if images | length > 1 %} tx-hero__media--pair{% endif %}">
             {% for image in images %}
               <figure class="tx-hero__figure">
-                <img src="{{ image.src | url }}" alt="{{ image.alt | d('', true) | e }}" loading="lazy">
+                {#- La primera imagen suele ser lo mayor de la primera pantalla: sin
+                    diferir y con prioridad. -#}
+                {% if loop.first %}
+                  <img src="{{ image.src | url }}" alt="{{ image.alt | d('', true) | e }}" fetchpriority="high">
+                {% else %}
+                  <img src="{{ image.src | url }}" alt="{{ image.alt | d('', true) | e }}" loading="lazy">
+                {% endif %}
                 {% if image.caption %}
                   <figcaption>{{ image.caption }}</figcaption>
                 {% endif %}
