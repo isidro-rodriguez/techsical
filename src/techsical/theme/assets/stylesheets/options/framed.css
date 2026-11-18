@@ -30,6 +30,11 @@
   border-radius: var(--tx-radius-large);
 }
 
+/* Las migas quedan fuera del panel: un poco de aire las separa del artículo. */
+.md-path {
+  margin-bottom: 1em;
+}
+
 /* Zensical deja un hueco sobre el título con un ::before; dentro del panel sobra. */
 .md-content__inner::before {
   height: 0;

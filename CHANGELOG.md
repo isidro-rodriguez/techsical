@@ -11,7 +11,8 @@ Formato de [Keep a Changelog](https://keepachangelog.com/es-ES/1.1.0/) y version
 
 - Opciones de maquetación en `[project.extra.techsical]`: `toc = false` quita el
   índice lateral de todas las páginas y centra el artículo; `framed = true` pone
-  el artículo en un panel sobre un fondo de página más oscuro; `footer_nav = true`
+  el artículo en un panel sobre un fondo de página más oscuro, con las migas de
+  pan separadas del panel; `footer_nav = true`
   muestra «anterior / siguiente» al pie.
 - Transiciones suaves entre páginas (View Transitions entre documentos), con la
   imagen de un enlace que se desplaza hasta la de la página de destino;
