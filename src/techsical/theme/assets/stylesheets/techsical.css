@@ -786,6 +786,95 @@ body {
   background-color: var(--tx-accent);
 }
 
+/* --- Referencia de la API (mkdocstrings) --------------------------------- */
+
+/* Símbolos de la navegación y del índice (mod, class, func…) con los colores
+   del tema en lugar de los de GitHub. */
+:root,
+[data-md-color-scheme="default"] {
+  --doc-symbol-module-fg-color: var(--tx-success-700);
+  --doc-symbol-class-fg-color: var(--tx-primary);
+  --doc-symbol-function-fg-color: var(--tx-accent);
+  --doc-symbol-method-fg-color: var(--tx-accent);
+  --doc-symbol-attribute-fg-color: var(--tx-warning-700);
+  --doc-symbol-parameter-fg-color: var(--tx-text-muted);
+}
+
+[data-md-color-scheme="slate"] {
+  --doc-symbol-module-fg-color: var(--tx-success-300);
+  --doc-symbol-class-fg-color: var(--tx-primary);
+  --doc-symbol-function-fg-color: var(--tx-accent);
+  --doc-symbol-method-fg-color: var(--tx-accent);
+  --doc-symbol-attribute-fg-color: var(--tx-warning-300);
+  --doc-symbol-parameter-fg-color: var(--tx-text-muted);
+}
+
+/* Nombres de objetos: monoespaciada, como el código que los usa. */
+.md-typeset .doc-heading .doc-object-name {
+  font-family: var(--tx-font-code);
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+.md-typeset h2.doc-heading .doc-object-name {
+  font-size: 0.9em;
+}
+
+/* Cada objeto de primer nivel (clase, función, atributo) se separa con una línea. */
+.md-typeset h2.doc-heading {
+  margin-top: var(--tx-space-12);
+  padding-top: var(--tx-space-6);
+  border-top: var(--tx-rule) solid var(--tx-border);
+}
+
+/* Etiquetas (dataclass, property, module-attribute): rótulos pequeños. */
+.md-typeset .doc-label code {
+  padding: 1px var(--tx-space-2);
+  font-family: var(--tx-font-ui);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  vertical-align: middle;
+  color: var(--tx-text-muted);
+  background: none;
+  border: var(--tx-rule) solid var(--tx-border-strong);
+  border-radius: 999px;
+}
+
+.md-typeset .doc-class-bases {
+  font-family: var(--tx-font-ui);
+  font-size: var(--tx-size-small);
+  color: var(--tx-text-muted);
+}
+
+/* Títulos de sección (Parámetros, Devuelve, Lanza…): rótulos de interfaz. */
+.md-typeset .doc-section-title {
+  margin: var(--tx-space-6) 0 var(--tx-space-2);
+  font-family: var(--tx-font-ui);
+  font-size: var(--tx-size-caption);
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--tx-text-secondary);
+}
+
+/* Miembros de una clase: sangrados con una línea a la izquierda. */
+.md-typeset .doc-contents:not(.first) {
+  border-left-color: var(--tx-border);
+}
+
+/* Firma: la primera línea del objeto, pegada a su título. */
+.md-typeset .doc-signature {
+  margin-top: var(--tx-space-2);
+}
+
+/* «Código fuente en …»: plegable discreto. */
+.md-typeset .doc details.quote {
+  --tx-adm-bg: var(--tx-surface-1);
+  --tx-adm-icon: var(--tx-text-muted);
+}
+
 /* --- Pestañas, etiquetas, botones ----------------------------------------- */
 
 .md-typeset .tabbed-labels,

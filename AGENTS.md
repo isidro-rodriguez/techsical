@@ -71,6 +71,8 @@ src/techsical/
     │                    #   copyright.html
     └── assets/          # stylesheets/techsical.css + fonts.css, fonts/ (woff2 + OFL)
 docs/ + zensical.toml    # demo site and user guide, built with the theme itself
+docs_templates/          # demo only: Spanish mkdocstrings templates (es.html.jinja)
+examples/obra/           # demo only: sample package for the API reference pages
 scripts/capturas.py      # Playwright screenshots of the demo site (light/dark, desktop/mobile)
 tests/                   # builds sites with the theme; WCAG contrast of the colours
 ```

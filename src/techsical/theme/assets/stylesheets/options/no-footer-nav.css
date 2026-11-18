@@ -5,6 +5,6 @@
  * features.
  */
 
-.md-footer__inner {
+html body .md-footer .md-footer__inner {
   display: none;
 }

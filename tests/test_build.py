@@ -29,6 +29,8 @@ def demo(tmp_path_factory: pytest.TempPathFactory) -> Path:
     """La web de demostración del repositorio, construida en una carpeta temporal."""
     project = tmp_path_factory.mktemp("demo")
     shutil.copytree(ROOT / "docs", project / "docs")
+    shutil.copytree(ROOT / "docs_templates", project / "docs_templates")
+    shutil.copytree(ROOT / "examples", project / "examples")
     shutil.copy(ROOT / "zensical.toml", project / "zensical.toml")
     _build(project)
     return project / "site"
@@ -202,3 +204,12 @@ def test_oscuro_propio_manda_sobre_el_derivado(tmp_path: Path) -> None:
     html = _html(_site(tmp_path, extra), "")
     assert "--tx-brand-primary-dark:#9ccfa8;" in html
     assert "color-mix(in oklab, #3f5f4a" not in html
+
+
+def test_referencia_de_la_api(demo: Path) -> None:
+    html = _html(demo, "api/obra/hormigon")
+    assert 'class="doc doc-heading"' in html
+    assert 'class="doc-section-title"' in html
+    # Traducción al español de las plantillas de mkdocstrings (docs_templates).
+    assert "Parámetros" in html
+    assert "Lanza" in html

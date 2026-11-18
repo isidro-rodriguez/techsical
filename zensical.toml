@@ -23,11 +23,34 @@ nav = [
         "guia/instalacion.md",
         "guia/personalizacion.md",
         "guia/paginas.md",
+        "guia/api.md",
     ] },
     { "Muestrario" = "muestrario.md" },
     { "Listas y pestañas" = "listas.md" },
     { "Fórmulas y diagramas" = "formulas.md" },
 ]
+
+# Referencia de la API del paquete de ejemplo examples/obra (no es parte del
+# tema): sirve para ver el estilo de las páginas de mkdocstrings.
+[project.plugins.api-autonav]
+modules = ["examples/obra"]
+api_root_uri = "api"
+nav_section_title = "API de ejemplo"
+
+[project.plugins.mkdocstrings]
+locale = "es"
+custom_templates = "docs_templates"
+
+[project.plugins.mkdocstrings.handlers.python]
+paths = ["examples"]
+
+[project.plugins.mkdocstrings.handlers.python.options]
+docstring_style = "google"
+members_order = "source"
+merge_init_into_class = true
+separate_signature = true
+show_signature_annotations = true
+show_source = true
 
 [project.theme]
 name = "techsical"
