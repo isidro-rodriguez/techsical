@@ -153,3 +153,21 @@ def test_mezclas_del_tema() -> None:
 
 def test_mezcla_sin_cambio_devuelve_el_color() -> None:
     assert contrast(mix(PRIMARY, 100, WHITE), PRIMARY) == pytest.approx(1, abs=1e-3)
+
+
+# Colores de marca habituales: el claro sobre blanco y el oscuro que el tema
+# deriva (50 % con blanco) sobre el fondo y la superficie oscuros.
+BRANDS = ["#164e63", "#3f5f4a", "#7c2d12", "#1e3a8a", "#1f3a5f", "#5b21b6", "#0f766e"]
+
+
+@pytest.mark.parametrize("brand", BRANDS)
+def test_marca_personalizada(brand: str) -> None:
+    assert contrast(brand, WHITE) >= TEXT
+    dark = mix(brand, 50, WHITE)
+    assert contrast(dark, NIGHT) >= TEXT
+    assert contrast(dark, "tx-night-surface-1") >= TEXT
+    assert contrast("tx-night-text", mix(_hex(dark), 18, NIGHT)) >= TEXT
+
+
+def _hex(rgb: tuple[float, float, float]) -> str:
+    return "#" + "".join(f"{round(c * 255):02x}" for c in rgb)

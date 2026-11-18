@@ -1,0 +1,26 @@
+/*
+ * techsical: opción toc = false ([project.extra.techsical]).
+ * Ninguna página muestra el índice lateral y el artículo se centra en el espacio
+ * libre, como con `hide: [toc]` en cada página. La especificidad supera a la de
+ * Zensical ([dir=ltr] .md-sidebar--primary…), que fija los márgenes.
+ */
+
+html body .md-main__inner > .md-sidebar.md-sidebar--secondary {
+  display: none;
+}
+
+/* Solo con espacio de sobra: en pantallas estrechas se conservan los márgenes de
+   Zensical. */
+@media screen and (min-width: 60em) {
+  html body .md-main__inner > .md-sidebar.md-sidebar--secondary ~ .md-content > .md-content__inner,
+  html body .md-main__inner > .md-sidebar.md-sidebar--secondary ~ .md-content > .md-path {
+    margin-right: auto;
+    margin-left: auto;
+  }
+}
+
+/* En móvil, el índice de la página también se integra en el cajón del menú. */
+.md-nav--primary .md-nav--secondary,
+.md-nav--primary .md-nav__link[for="__toc"] .md-nav__icon {
+  display: none;
+}

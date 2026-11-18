@@ -76,9 +76,12 @@ def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--full", action="store_true", help="página completa")
     parser.add_argument("--out", type=Path, default=ROOT / "capturas")
+    parser.add_argument(
+        "--site", type=Path, default=ROOT / "site", help="web construida"
+    )
     parser.add_argument("--cdn", type=Path, help="copia local de unpkg.com")
     args = parser.parse_args()
-    site = ROOT / "site"
+    site = args.site
     if not (site / "index.html").exists():
         print("Falta site/: ejecuta antes `uv run zensical build`.", file=sys.stderr)
         return 1
@@ -114,7 +117,7 @@ def main() -> int:
                             page.wait_for_timeout(2000)
                         path = args.out / f"{name}-{scheme}-{size}.png"
                         page.screenshot(path=str(path), full_page=args.full)
-                        print(path.relative_to(ROOT))
+                        print(path)
                     context.close()
             browser.close()
     finally:

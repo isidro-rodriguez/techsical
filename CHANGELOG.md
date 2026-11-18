@@ -3,6 +3,36 @@
 Formato de [Keep a Changelog](https://keepachangelog.com/es-ES/1.1.0/) y versiones
 [SemVer](https://semver.org/lang/es/).
 
+## [Sin publicar]
+
+## [0.2.0] - 2026-11-18
+
+### Añadido
+
+- Opciones de maquetación en `[project.extra.techsical]`: `toc = false` quita el
+  índice lateral de todas las páginas y centra el artículo; `framed = true` pone
+  el artículo en un panel sobre un fondo de página más oscuro, con las migas de
+  pan separadas del panel; `footer_nav = true`
+  muestra «anterior / siguiente» al pie.
+- Transiciones suaves entre páginas (View Transitions entre documentos), con la
+  imagen de un enlace que se desplaza hasta la de la página de destino;
+  `transitions = false` las quita.
+- Sin `primary_dark` ni `accent_dark`, el modo oscuro los deriva de los colores
+  claros de la web.
+
+### Cambiado
+
+- `navigation.instant` deja de estar entre las features por defecto: anula las
+  transiciones entre páginas.
+- La primera imagen de la portada se carga con prioridad en lugar de diferirse.
+- «Anterior / siguiente» al pie queda oculto por defecto y nunca aparece en la
+  portada.
+
+### Corregido
+
+- En pantallas estrechas, el artículo sin índice lateral conserva los márgenes
+  de Zensical en lugar de pegarse a los bordes.
+
 ## [0.1.0] - 2026-11-18
 
 ### Añadido

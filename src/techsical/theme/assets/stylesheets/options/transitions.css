@@ -1,0 +1,29 @@
+/*
+ * techsical: transiciones suaves entre páginas (View Transitions entre
+ * documentos). Activas por defecto; transitions = false en
+ * [project.extra.techsical] no carga esta hoja ni transitions.js.
+ *
+ * Solo funcionan con navegación normal entre páginas: la feature
+ * navigation.instant de Zensical cambia de página sin recargar y las anula.
+ * Los navegadores sin soporte navegan como siempre.
+ */
+
+@view-transition {
+  navigation: auto;
+}
+
+::view-transition-group(*) {
+  animation-duration: 0.35s;
+  animation-timing-function: cubic-bezier(0.2, 0, 0, 1);
+}
+
+/* La cabecera no cambia de una página a otra: se queda quieta. */
+.md-header {
+  view-transition-name: tx-header;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  @view-transition {
+    navigation: none;
+  }
+}

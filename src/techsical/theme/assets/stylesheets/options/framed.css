@@ -1,0 +1,53 @@
+/*
+ * techsical: opción framed = true ([project.extra.techsical]).
+ * El artículo va en un panel (fondo propio, borde fino, esquinas redondeadas y
+ * relleno) sobre un fondo de página algo más oscuro, como las tarjetas de una
+ * aplicación de escritorio. La portada (home.html) no lleva panel.
+ */
+
+:root,
+[data-md-color-scheme="default"] {
+  --tx-frame-page: var(--tx-surface-2);
+  --tx-frame-bg: var(--tx-bg);
+}
+
+[data-md-color-scheme="slate"] {
+  --tx-frame-page: var(--tx-bg);
+  --tx-frame-bg: var(--tx-surface-1);
+}
+
+.md-main,
+.md-footer,
+.md-footer-meta {
+  background-color: var(--tx-frame-page);
+}
+
+.md-content__inner {
+  margin-bottom: var(--tx-space-8);
+  padding: var(--tx-space-6) var(--tx-space-8) var(--tx-space-8);
+  background-color: var(--tx-frame-bg);
+  border: var(--tx-rule) solid var(--tx-border);
+  border-radius: var(--tx-radius-large);
+}
+
+/* Las migas quedan fuera del panel: un poco de aire las separa del artículo. */
+.md-path {
+  margin-bottom: 1em;
+}
+
+/* Zensical deja un hueco sobre el título con un ::before; dentro del panel sobra. */
+.md-content__inner::before {
+  height: 0;
+}
+
+@media screen and (max-width: 44.9375em) {
+  .md-content__inner {
+    padding: var(--tx-space-4) var(--tx-space-4) var(--tx-space-6);
+  }
+}
+
+.tx-home .md-content__inner {
+  padding: 0;
+  background-color: transparent;
+  border: 0;
+}

@@ -8,12 +8,30 @@
   (colores #rrggbb), font_text, font_ui, font_code (familias CSS; la web carga
   las fuentes que no traiga el tema), content_max y figure_max (anchos CSS),
   theme_color (barra del navegador), manifest y favicons (false los omite),
-  math (true carga MathJax para las fórmulas LaTeX de pymdownx.arithmatex) y
-  header_nav (ver partials/header.html).
+  math (true carga MathJax para las fórmulas LaTeX de pymdownx.arithmatex),
+  toc (false quita el índice lateral de todas las páginas), footer_nav (true
+  muestra «anterior / siguiente» al pie; por defecto no), framed (true pone el
+  artículo en un panel), transitions (false quita las transiciones entre
+  páginas) y header_nav (ver partials/header.html).
 -#}
 {% set tx = config.extra.techsical | d({}, true) %}
 <link rel="stylesheet" href="{{ 'assets/stylesheets/fonts.css' | url }}">
 <link rel="stylesheet" href="{{ 'assets/stylesheets/techsical.css' | url }}">
+{#- Opciones de maquetación: hojas aparte, cargadas solo si se activan. Van en
+    <head> porque valen para toda la web (la navegación instantánea no lo cambia). -#}
+{% if tx.toc == false %}
+  <link rel="stylesheet" href="{{ 'assets/stylesheets/options/no-toc.css' | url }}">
+{% endif %}
+{% if not tx.footer_nav %}
+  <link rel="stylesheet" href="{{ 'assets/stylesheets/options/no-footer-nav.css' | url }}">
+{% endif %}
+{% if tx.transitions != false %}
+  <link rel="stylesheet" href="{{ 'assets/stylesheets/options/transitions.css' | url }}">
+  <script src="{{ 'assets/javascripts/transitions.js' | url }}"></script>
+{% endif %}
+{% if tx.framed %}
+  <link rel="stylesheet" href="{{ 'assets/stylesheets/options/framed.css' | url }}">
+{% endif %}
 {% set _ = namespace(css = "") %}
 {% for key, var in [
   ("primary", "--tx-brand-primary"),
@@ -30,6 +48,15 @@
     {% set _.css = _.css ~ var ~ ":" ~ tx[key] ~ ";" %}
   {% endif %}
 {% endfor %}
+{#- Sin primary_dark/accent_dark propios, el modo oscuro deriva los suyos del
+    color claro de la web (50 % con blanco: contraste ≥ 4,5:1 sobre el fondo
+    oscuro con colores de marca habituales; ver tests/test_contrast.py). -#}
+{% if tx.primary and not tx.primary_dark %}
+  {% set _.css = _.css ~ "--tx-brand-primary-dark:color-mix(in oklab, " ~ tx.primary ~ " 50%, white);" %}
+{% endif %}
+{% if tx.accent and not tx.accent_dark %}
+  {% set _.css = _.css ~ "--tx-brand-accent-dark:color-mix(in oklab, " ~ tx.accent ~ " 50%, white);" %}
+{% endif %}
 {% if _.css %}
   <style>:root{{ "{" }}{{ _.css }}{{ "}" }}</style>
 {% endif %}

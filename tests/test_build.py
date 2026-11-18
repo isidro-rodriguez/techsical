@@ -144,3 +144,61 @@ def test_formulas_con_math(demo: Path) -> None:
 
 def test_sin_math_no_carga_mathjax(tmp_path: Path) -> None:
     assert "mathjax" not in _html(_site(tmp_path, ""), "")
+
+
+def test_opciones_de_maquetacion_por_defecto(demo: Path) -> None:
+    html = _html(demo, "guia/instalacion")
+    # Sin «anterior / siguiente» al pie; con índice lateral y sin panel.
+    assert "options/no-footer-nav.css" in html
+    assert "options/no-toc.css" not in html
+    assert "options/framed.css" not in html
+    # Transiciones entre páginas activas y sin navegación instantánea.
+    assert "options/transitions.css" in html
+    assert 'src="../../assets/javascripts/transitions.js"' in html
+    assert '"navigation.instant"' not in html
+
+
+def test_opciones_sin_indice_con_panel_y_paso_de_pagina(tmp_path: Path) -> None:
+    site = _site(
+        tmp_path,
+        "\n[project.extra.techsical]\ntoc = false\nframed = true\nfooter_nav = true\n",
+    )
+    html = _html(site, "")
+    assert "options/no-toc.css" in html
+    assert "options/framed.css" in html
+    assert "options/no-footer-nav.css" not in html
+    for name in ("no-toc", "framed", "no-footer-nav", "transitions"):
+        assert (site / f"assets/stylesheets/options/{name}.css").is_file()
+
+
+def test_sin_transiciones(tmp_path: Path) -> None:
+    html = _html(
+        _site(tmp_path, "\n[project.extra.techsical]\ntransitions = false\n"), ""
+    )
+    assert "transitions.css" not in html
+    assert "transitions.js" not in html
+
+
+def test_portada_carga_la_primera_imagen_con_prioridad(demo: Path) -> None:
+    hero = re.findall(r'tx-hero__figure">\s*<img([^>]*)>', _html(demo, ""))
+    assert len(hero) == 2
+    assert 'fetchpriority="high"' in hero[0]
+    assert 'loading="lazy"' not in hero[0]
+    assert 'loading="lazy"' in hero[1]
+
+
+def test_oscuro_derivado_del_color_de_la_web(tmp_path: Path) -> None:
+    html = _html(
+        _site(tmp_path, '\n[project.extra.techsical]\nprimary = "#3f5f4a"\n'), ""
+    )
+    assert "--tx-brand-primary-dark:color-mix(in oklab, #3f5f4a 50%, white);" in html
+    assert "--tx-brand-accent-dark" not in html
+
+
+def test_oscuro_propio_manda_sobre_el_derivado(tmp_path: Path) -> None:
+    extra = (
+        '\n[project.extra.techsical]\nprimary = "#3f5f4a"\nprimary_dark = "#9ccfa8"\n'
+    )
+    html = _html(_site(tmp_path, extra), "")
+    assert "--tx-brand-primary-dark:#9ccfa8;" in html
+    assert "color-mix(in oklab, #3f5f4a" not in html

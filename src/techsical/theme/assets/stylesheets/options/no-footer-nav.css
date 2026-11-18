@@ -1,0 +1,10 @@
+/*
+ * techsical: sin «anterior / siguiente» al pie (opción por defecto; footer_nav =
+ * true en [project.extra.techsical] los muestra). Se oculta el bloque y no la
+ * feature navigation.footer, para que funcione aunque la web declare sus propias
+ * features.
+ */
+
+.md-footer__inner {
+  display: none;
+}

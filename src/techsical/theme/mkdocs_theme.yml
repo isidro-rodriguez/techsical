@@ -7,6 +7,9 @@ language: es
 font: false
 favicon: assets/favicon/favicon-32x32.png
 
+# navigation.footer (anterior/siguiente al pie) queda oculta salvo con
+# footer_nav = true en [project.extra.techsical]. Sin navigation.instant: cambia
+# de página sin recargar y anula las transiciones entre páginas del tema.
 features:
   - content.code.annotate
   - content.code.copy
@@ -14,7 +17,6 @@ features:
   - content.tooltips
   - navigation.footer
   - navigation.indexes
-  - navigation.instant
   - navigation.path
   - navigation.sections
   - navigation.top
