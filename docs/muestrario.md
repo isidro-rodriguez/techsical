@@ -125,12 +125,7 @@ Imagen grande: se reduce al ancho máximo de las figuras.
 Figura con pie: el pie va en sans, más pequeño.
 ///
 
-Diagrama:
-
-``` mermaid
-graph LR
-  A[Markdown] --> B[Zensical] --> C[techsical] --> D[HTML]
-```
+Fórmulas y diagramas: en su [propia página](formulas.md).
 
 ## Caracteres técnicos
 

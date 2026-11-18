@@ -266,6 +266,14 @@
   --md-footer-bg-color: var(--tx-bg);
   --md-footer-fg-color: var(--tx-text-secondary);
 
+  /* Diagramas Mermaid con los colores del tema. */
+  --md-mermaid-font-family: var(--tx-font-ui);
+  --md-mermaid-node-bg-color: var(--tx-primary-soft);
+  --md-mermaid-node-fg-color: var(--tx-primary);
+  --md-mermaid-edge-color: var(--tx-text-secondary);
+  --md-mermaid-label-bg-color: var(--tx-bg);
+  --md-mermaid-label-fg-color: var(--tx-text);
+
   /* Sin sombras decorativas: las superficies se separan con líneas. */
   --md-shadow-z1: 0 0 0 var(--tx-rule) var(--tx-border);
   --md-shadow-z2: 0 0 0 var(--tx-rule) var(--tx-border);
@@ -863,4 +871,14 @@ body .md-main__inner > .md-sidebar--secondary[hidden] ~ .md-content > .md-path {
 
 .md-typeset .tx-cards > ul > li > :last-child {
   margin-bottom: 0;
+}
+
+/* --- Fórmulas (MathJax) ---------------------------------------------------- */
+
+.md-typeset .arithmatex {
+  overflow-x: auto;
+}
+
+.md-typeset div.arithmatex {
+  margin-block: var(--tx-space-6);
 }

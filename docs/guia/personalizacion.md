@@ -19,6 +19,7 @@ font_code = "'Fira Code', monospace"
 content_max = "720px"      # ancho del artículo
 figure_max = "640px"       # ancho máximo de las imágenes
 theme_color = "#164e63"    # barra del navegador (por defecto, primary)
+math = true                # fórmulas LaTeX con MathJax (requiere pymdownx.arithmatex)
 header_nav = [
     { title = "Guía", url = "guia/" },
     { title = "API", url = "api/" },
@@ -35,6 +36,7 @@ header_nav = [
 | `content_max` | `720px` | Texto, tablas y código comparten este ancho |
 | `figure_max` | `640px` | Las imágenes nunca se amplían por encima de su tamaño |
 | `header_nav` | — | Enlaces propios de la cabecera; el menú lateral sigue igual |
+| `math` | `false` | Carga MathJax desde unpkg.com; activa `pymdownx.arithmatex` con `generic = true` |
 
 !!! warning "Fuentes propias"
 

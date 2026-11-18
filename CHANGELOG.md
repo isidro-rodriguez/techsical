@@ -19,3 +19,5 @@ Formato de [Keep a Changelog](https://keepachangelog.com/es-ES/1.1.0/) y version
   centradas sin ampliar, tablas a todo el ancho y notas planas por estado.
 - Personalización en `[project.extra.techsical]`: colores, fuentes, anchos,
   favicons, manifiesto y color del navegador.
+- Fórmulas LaTeX con MathJax (`math = true`) y diagramas Mermaid con los colores
+  del tema.

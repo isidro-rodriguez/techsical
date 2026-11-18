@@ -25,6 +25,7 @@ nav = [
         "guia/paginas.md",
     ] },
     { "Muestrario" = "muestrario.md" },
+    { "Fórmulas y diagramas" = "formulas.md" },
 ]
 
 [project.theme]
@@ -32,6 +33,7 @@ name = "techsical"
 logo = "assets/images/logo.svg"
 
 [project.extra.techsical]
+math = true
 header_nav = [
     { title = "Guía", url = "guia/" },
     { title = "Muestrario", url = "muestrario/" },

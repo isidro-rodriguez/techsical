@@ -131,3 +131,14 @@ def test_main_html_propio_no_pierde_la_cabecera_del_tema(tmp_path: Path) -> None
     assert "PROPIO" in html
     assert "assets/stylesheets/techsical.css" in html
     assert 'class="tx-brand__name">Prueba<' in html
+
+
+def test_formulas_con_math(demo: Path) -> None:
+    html = _html(demo, "formulas")
+    assert 'src="../assets/javascripts/math.js"' in html
+    assert "mathjax@3" in html
+    assert (demo / "assets/javascripts/math.js").is_file()
+
+
+def test_sin_math_no_carga_mathjax(tmp_path: Path) -> None:
+    assert "mathjax" not in _html(_site(tmp_path, ""), "")

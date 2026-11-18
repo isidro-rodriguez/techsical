@@ -5,6 +5,10 @@ Sirve ``site/`` (constrúyelo antes con ``uv run zensical build``) y guarda en
 y móvil). Necesita Playwright y Chrome, Edge o ``playwright install chromium``::
 
     uv run --with playwright python scripts/capturas.py [--full]
+
+Mermaid y MathJax se cargan desde unpkg.com. Sin acceso a internet, ``--cdn DIR``
+sirve ``https://unpkg.com/<paquete>@<versión>/<ruta>`` desde ``DIR/<paquete>/<ruta>``
+(por ejemplo, paquetes de npm descomprimidos).
 """
 
 from __future__ import annotations
@@ -12,9 +16,15 @@ from __future__ import annotations
 import argparse
 import functools
 import http.server
+import re
 import sys
 import threading
+from collections.abc import Callable
 from pathlib import Path
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from playwright.sync_api import Route
 
 ROOT = Path(__file__).resolve().parent.parent
 PAGES = {
@@ -22,7 +32,9 @@ PAGES = {
     "instalacion": "guia/instalacion/",
     "paginas": "guia/paginas/",
     "muestrario": "muestrario/",
+    "formulas": "formulas/",
 }
+UNPKG = re.compile(r"https://unpkg\.com/(@?[^@/]+(?:/[^@/]+)?)@[^/]+/(.+)")
 SIZES = {"escritorio": (1440, 900), "movil": (390, 844)}
 SCHEMES = ("light", "dark")
 
@@ -42,6 +54,20 @@ def _serve(site: Path) -> tuple[http.server.ThreadingHTTPServer, str]:
     return server, f"http://127.0.0.1:{server.server_port}/"
 
 
+def _local(cdn: Path) -> Callable[[Route], None]:
+    """Manejador que responde las peticiones a unpkg.com desde ``cdn``."""
+
+    def handle(route: Route) -> None:
+        match = UNPKG.match(route.request.url)
+        path = cdn / match.group(1) / match.group(2) if match else None
+        if path and path.is_file():
+            route.fulfill(path=str(path))
+        else:
+            route.abort()
+
+    return handle
+
+
 def main() -> int:
     """Genera las capturas; devuelve el código de salida."""
     from playwright.sync_api import sync_playwright
@@ -49,6 +75,7 @@ def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--full", action="store_true", help="página completa")
     parser.add_argument("--out", type=Path, default=ROOT / "capturas")
+    parser.add_argument("--cdn", type=Path, help="copia local de unpkg.com")
     args = parser.parse_args()
     site = ROOT / "site"
     if not (site / "index.html").exists():
@@ -75,10 +102,15 @@ def main() -> int:
                         color_scheme=scheme,
                         device_scale_factor=1,
                     )
+                    if args.cdn:
+                        context.route("https://unpkg.com/**", _local(args.cdn))
                     page = context.new_page()
                     for name, rel in PAGES.items():
                         page.goto(base + rel, wait_until="networkidle")
                         page.evaluate("document.fonts.ready")
+                        # Mermaid y MathJax componen después de cargar la página.
+                        if page.locator(".mermaid, .arithmatex").count():
+                            page.wait_for_timeout(2000)
                         path = args.out / f"{name}-{scheme}-{size}.png"
                         page.screenshot(path=str(path), full_page=args.full)
                         print(path.relative_to(ROOT))
