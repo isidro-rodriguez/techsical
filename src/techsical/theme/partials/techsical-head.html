@@ -1,0 +1,48 @@
+{#-
+  techsical: hojas de estilo del tema, variables de la web, favicons y manifiesto.
+  Se incluye desde partials/icons.html, dentro del bloque `styles` de base.html:
+  después de las hojas de Zensical y antes de extra_css, así la hoja propia de
+  la web puede pisar cualquier regla del tema.
+
+  [project.extra.techsical] admite: primary, accent, primary_dark, accent_dark
+  (colores #rrggbb), font_text, font_ui, font_code (familias CSS; la web carga
+  las fuentes que no traiga el tema), content_max y figure_max (anchos CSS),
+  theme_color (barra del navegador), manifest y favicons (false los omite),
+  math (true carga MathJax para las fórmulas LaTeX de pymdownx.arithmatex) y
+  header_nav (ver partials/header.html).
+-#}
+{% set tx = config.extra.techsical | d({}, true) %}
+<link rel="stylesheet" href="{{ 'assets/stylesheets/fonts.css' | url }}">
+<link rel="stylesheet" href="{{ 'assets/stylesheets/techsical.css' | url }}">
+{% set _ = namespace(css = "") %}
+{% for key, var in [
+  ("primary", "--tx-brand-primary"),
+  ("accent", "--tx-brand-accent"),
+  ("primary_dark", "--tx-brand-primary-dark"),
+  ("accent_dark", "--tx-brand-accent-dark"),
+  ("font_text", "--tx-font-text"),
+  ("font_ui", "--tx-font-ui"),
+  ("font_code", "--tx-font-code"),
+  ("content_max", "--tx-content-max"),
+  ("figure_max", "--tx-figure-max")
+] %}
+  {% if tx[key] %}
+    {% set _.css = _.css ~ var ~ ":" ~ tx[key] ~ ";" %}
+  {% endif %}
+{% endfor %}
+{% if _.css %}
+  <style>:root{{ "{" }}{{ _.css }}{{ "}" }}</style>
+{% endif %}
+{% if tx.favicons != false %}
+  <link rel="icon" href="{{ 'assets/favicon/favicon.ico' | url }}" sizes="48x48">
+  <link rel="icon" type="image/png" sizes="16x16" href="{{ 'assets/favicon/favicon-16x16.png' | url }}">
+  <link rel="apple-touch-icon" sizes="180x180" href="{{ 'assets/favicon/apple-touch-icon.png' | url }}">
+{% endif %}
+{% if tx.manifest != false %}
+  <link rel="manifest" href="{{ 'site.webmanifest' | url }}">
+{% endif %}
+<meta name="theme-color" content="{{ tx.theme_color or tx.primary or '#164e63' }}">
+{% if tx.math %}
+  <script src="{{ 'assets/javascripts/math.js' | url }}" defer></script>
+  <script src="https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js" defer></script>
+{% endif %}

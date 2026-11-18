@@ -1,0 +1,956 @@
+/*
+ * techsical: tema editorial técnico para Zensical.
+ *
+ * Capas de variables (de la más general a la más concreta):
+ *   1. Primitivas: escalas de color fijas (--tx-petroleum-*, --tx-slate-*…).
+ *   2. Marca: los dos colores que personaliza cada web (--tx-brand-*), con la
+ *      escala derivada por color-mix().
+ *   3. Semánticas: texto, superficies, bordes y estados, por esquema (claro u
+ *      oscuro). Los componentes solo usan estas.
+ *   4. Puente: las variables del tema de Zensical (--md-*) apuntan a las
+ *      semánticas, así todo lo que pinta Zensical hereda los colores.
+ *   5. Componentes: cabecera, artículo, tablas, figuras, notas, código, portada.
+ *
+ * La web personaliza colores y fuentes en [project.extra.techsical] de su
+ * zensical.toml (partials/techsical-head.html los escribe en :root) o en su
+ * propia hoja de estilos, que se carga después de esta.
+ */
+
+/* ==========================================================================
+   1. Primitivas
+   ========================================================================== */
+
+:root {
+  --tx-petroleum-100: #d5e7ec;
+  --tx-petroleum-200: #b4d1da;
+  --tx-petroleum-300: #8bb7c5;
+  --tx-petroleum-400: #5d97ac;
+  --tx-petroleum-500: #397a92;
+  --tx-petroleum-600: #28657c;
+  --tx-petroleum-700: #20556a;
+  --tx-petroleum-800: #164e63;
+  --tx-petroleum-900: #0b3545;
+
+  --tx-teal-100: #ccfbf1;
+  --tx-teal-200: #99f6e4;
+  --tx-teal-300: #5eead4;
+  --tx-teal-400: #2dd4bf;
+  --tx-teal-500: #14b8a6;
+  --tx-teal-600: #0d9488;
+  --tx-teal-700: #0f766e;
+  --tx-teal-800: #115e59;
+  --tx-teal-900: #134e4a;
+
+  --tx-slate-50: #f8fafc;
+  --tx-slate-100: #f1f5f9;
+  --tx-slate-200: #e2e8f0;
+  --tx-slate-300: #cbd5e1;
+  --tx-slate-400: #94a3b8;
+  --tx-slate-500: #64748b;
+  --tx-slate-600: #475569;
+  --tx-slate-700: #334155;
+  --tx-slate-800: #1e293b;
+  --tx-slate-900: #0f172a;
+
+  --tx-success-100: #dcfce7;
+  --tx-success-300: #86efac;
+  --tx-success-500: #22c55e;
+  --tx-success-700: #15803d;
+  --tx-success-900: #14532d;
+  --tx-warning-100: #fef3c7;
+  --tx-warning-300: #fcd34d;
+  --tx-warning-500: #f59e0b;
+  --tx-warning-700: #b45309;
+  --tx-warning-900: #78350f;
+  --tx-danger-100: #fee2e2;
+  --tx-danger-300: #fca5a5;
+  --tx-danger-500: #ef4444;
+  --tx-danger-700: #b91c1c;
+  --tx-danger-900: #7f1d1d;
+  --tx-info-100: #e0f2fe;
+  --tx-info-300: #7dd3fc;
+  --tx-info-500: #0ea5e9;
+  --tx-info-700: #0369a1;
+  --tx-info-900: #0c4a6e;
+
+  /* Oscuro: superficies propias, no una inversión del claro. */
+  --tx-night-bg: #111c24;
+  --tx-night-surface-1: #182630;
+  --tx-night-surface-2: #202f3a;
+  --tx-night-surface-3: #293b47;
+  --tx-night-border: #354957;
+  --tx-night-border-strong: #526877;
+  --tx-night-text: #f1f5f9;
+  --tx-night-text-secondary: #c3d0d8;
+  --tx-night-text-muted: #91a4b1;
+
+  /* ------------------------------------------------------------------------
+     Tipografía: serif para el texto y los títulos, sans para la interfaz,
+     las tablas y los pies; monoespaciada para código y datos.
+     ------------------------------------------------------------------------ */
+  --tx-font-text: "Source Serif 4", Georgia, "Times New Roman", serif;
+  --tx-font-ui: "Manrope", "Segoe UI", system-ui, sans-serif;
+  --tx-font-code: "JetBrains Mono", ui-monospace, "Cascadia Mono", Consolas, monospace;
+
+  --tx-size-body: 17px;
+  --tx-size-lead: 20px;
+  --tx-size-small: 14px;
+  --tx-size-caption: 13px;
+  --tx-size-code: 0.85em;
+  --tx-size-h1: clamp(28px, 2.2vw + 14px, 38px);
+  --tx-size-h2: clamp(23px, 1.4vw + 12px, 28px);
+  --tx-size-h3: clamp(20px, 0.8vw + 13px, 23px);
+  --tx-size-h4: 19px;
+  --tx-size-h5: 17px;
+  --tx-leading-body: 1.65;
+  --tx-leading-heading: 1.25;
+  --tx-leading-code: 1.55;
+
+  /* Espaciado de 4 px. */
+  --tx-space-1: 4px;
+  --tx-space-2: 8px;
+  --tx-space-3: 12px;
+  --tx-space-4: 16px;
+  --tx-space-5: 20px;
+  --tx-space-6: 24px;
+  --tx-space-8: 32px;
+  --tx-space-10: 40px;
+  --tx-space-12: 48px;
+  --tx-space-16: 64px;
+
+  /* Anchos en px: el tema de Zensical agranda el rem en pantallas anchas, y el
+     artículo (texto, tablas y código) debe quedarse en unos 70-80 caracteres. */
+  --tx-content-max: 720px;
+  --tx-figure-max: 640px;
+
+  --tx-radius: 4px;
+  --tx-radius-large: 8px;
+  --tx-rule: 1px;
+  --tx-motion: 150ms ease-out;
+}
+
+/* ==========================================================================
+   2. Marca (lo que personaliza cada web)
+   ========================================================================== */
+
+:root {
+  --tx-brand-primary: var(--tx-petroleum-800);
+  --tx-brand-accent: var(--tx-teal-700);
+  --tx-brand-primary-dark: #66b7cc;
+  --tx-brand-accent-dark: #2cb5a5;
+}
+
+/* ==========================================================================
+   3. Semánticas por esquema
+   ========================================================================== */
+
+:root,
+[data-md-color-scheme="default"] {
+  --tx-primary: var(--tx-brand-primary);
+  --tx-primary-hover: color-mix(in oklab, var(--tx-brand-primary) 80%, black);
+  --tx-primary-soft: color-mix(in oklab, var(--tx-brand-primary) 9%, white);
+  --tx-primary-softer: color-mix(in oklab, var(--tx-brand-primary) 5%, white);
+  --tx-accent: var(--tx-brand-accent);
+  --tx-accent-soft: color-mix(in oklab, var(--tx-brand-accent) 12%, white);
+
+  --tx-bg: #fff;
+  --tx-surface-1: var(--tx-slate-50);
+  --tx-surface-2: var(--tx-slate-100);
+  --tx-surface-3: var(--tx-slate-200);
+  --tx-border: var(--tx-slate-200);
+  --tx-border-strong: var(--tx-slate-300);
+  --tx-text: var(--tx-slate-900);
+  --tx-text-secondary: var(--tx-slate-700);
+  --tx-text-muted: var(--tx-slate-600);
+  --tx-link: var(--tx-primary);
+  --tx-link-hover: var(--tx-accent);
+  --tx-focus: var(--tx-accent);
+
+  --tx-header-bg: var(--tx-brand-primary);
+  --tx-header-fg: #fff;
+  --tx-header-fg-muted: color-mix(in oklab, white 78%, var(--tx-brand-primary));
+  --tx-header-rule: color-mix(in oklab, white 35%, var(--tx-brand-primary));
+
+  --tx-code-bg: var(--tx-slate-100);
+  --tx-code-fg: var(--tx-slate-800);
+
+  --tx-success-bg: var(--tx-success-100);
+  --tx-success-fg: var(--tx-success-900);
+  --tx-success-icon: var(--tx-success-700);
+  --tx-warning-bg: var(--tx-warning-100);
+  --tx-warning-fg: var(--tx-warning-900);
+  --tx-warning-icon: var(--tx-warning-700);
+  --tx-danger-bg: var(--tx-danger-100);
+  --tx-danger-fg: var(--tx-danger-900);
+  --tx-danger-icon: var(--tx-danger-700);
+  --tx-info-bg: var(--tx-info-100);
+  --tx-info-fg: var(--tx-info-900);
+  --tx-info-icon: var(--tx-info-700);
+}
+
+[data-md-color-scheme="slate"] {
+  --tx-primary: var(--tx-brand-primary-dark);
+  --tx-primary-hover: color-mix(in oklab, var(--tx-brand-primary-dark) 75%, white);
+  --tx-primary-soft: color-mix(in oklab, var(--tx-brand-primary-dark) 18%, var(--tx-night-bg));
+  --tx-primary-softer: color-mix(in oklab, var(--tx-brand-primary-dark) 9%, var(--tx-night-bg));
+  --tx-accent: var(--tx-brand-accent-dark);
+  --tx-accent-soft: color-mix(in oklab, var(--tx-brand-accent-dark) 18%, var(--tx-night-bg));
+
+  --tx-bg: var(--tx-night-bg);
+  --tx-surface-1: var(--tx-night-surface-1);
+  --tx-surface-2: var(--tx-night-surface-2);
+  --tx-surface-3: var(--tx-night-surface-3);
+  --tx-border: var(--tx-night-border);
+  --tx-border-strong: var(--tx-night-border-strong);
+  --tx-text: var(--tx-night-text);
+  --tx-text-secondary: var(--tx-night-text-secondary);
+  --tx-text-muted: var(--tx-night-text-muted);
+  --tx-link: var(--tx-primary);
+  --tx-link-hover: color-mix(in oklab, var(--tx-brand-primary-dark) 70%, white);
+  --tx-focus: var(--tx-accent);
+
+  --tx-header-bg: var(--tx-night-surface-1);
+  --tx-header-fg: var(--tx-night-text);
+  --tx-header-fg-muted: var(--tx-night-text-secondary);
+  --tx-header-rule: var(--tx-night-border-strong);
+
+  --tx-code-bg: var(--tx-night-surface-2);
+  --tx-code-fg: var(--tx-night-text);
+
+  --tx-success-bg: color-mix(in oklab, var(--tx-success-500) 16%, var(--tx-night-bg));
+  --tx-success-fg: var(--tx-success-100);
+  --tx-success-icon: var(--tx-success-300);
+  --tx-warning-bg: color-mix(in oklab, var(--tx-warning-500) 16%, var(--tx-night-bg));
+  --tx-warning-fg: var(--tx-warning-100);
+  --tx-warning-icon: var(--tx-warning-300);
+  --tx-danger-bg: color-mix(in oklab, var(--tx-danger-500) 16%, var(--tx-night-bg));
+  --tx-danger-fg: var(--tx-danger-100);
+  --tx-danger-icon: var(--tx-danger-300);
+  --tx-info-bg: color-mix(in oklab, var(--tx-info-500) 16%, var(--tx-night-bg));
+  --tx-info-fg: var(--tx-info-100);
+  --tx-info-icon: var(--tx-info-300);
+}
+
+/* ==========================================================================
+   4. Puente con las variables de Zensical
+   ========================================================================== */
+
+:root,
+[data-md-color-scheme="default"],
+[data-md-color-scheme="slate"] {
+  --md-text-font: "Manrope";
+  --md-code-font: "JetBrains Mono";
+  --md-text-font-family: var(--tx-font-ui);
+  --md-code-font-family: var(--tx-font-code);
+
+  --md-primary-fg-color: var(--tx-primary);
+  --md-primary-fg-color--light: var(--tx-primary);
+  --md-primary-fg-color--dark: var(--tx-primary-hover);
+  --md-primary-bg-color: var(--tx-header-fg);
+  --md-accent-fg-color: var(--tx-accent);
+  --md-accent-fg-color--transparent: var(--tx-accent-soft);
+
+  --md-default-bg-color: var(--tx-bg);
+  --md-default-fg-color: var(--tx-text);
+  --md-default-fg-color--light: var(--tx-text-muted);
+  --md-default-fg-color--lighter: var(--tx-border-strong);
+  --md-default-fg-color--lightest: var(--tx-border);
+
+  --md-typeset-color: var(--tx-text);
+  --md-typeset-a-color: var(--tx-link);
+  --md-typeset-table-color: var(--tx-border);
+  --md-typeset-table-color--light: var(--tx-surface-1);
+  --md-code-bg-color: var(--tx-code-bg);
+  --md-code-fg-color: var(--tx-code-fg);
+  --md-admonition-fg-color: var(--tx-text);
+  --md-footer-bg-color: var(--tx-bg);
+  --md-footer-fg-color: var(--tx-text-secondary);
+
+  /* Diagramas Mermaid con los colores del tema. */
+  --md-mermaid-font-family: var(--tx-font-ui);
+  --md-mermaid-node-bg-color: var(--tx-primary-soft);
+  --md-mermaid-node-fg-color: var(--tx-primary);
+  --md-mermaid-edge-color: var(--tx-text-secondary);
+  --md-mermaid-label-bg-color: var(--tx-bg);
+  --md-mermaid-label-fg-color: var(--tx-text);
+
+  /* Sin sombras decorativas: las superficies se separan con líneas. */
+  --md-shadow-z1: 0 0 0 var(--tx-rule) var(--tx-border);
+  --md-shadow-z2: 0 0 0 var(--tx-rule) var(--tx-border);
+}
+
+body {
+  font-family: var(--tx-font-ui);
+  background-color: var(--tx-bg);
+  color: var(--tx-text);
+}
+
+:focus-visible {
+  outline: 2px solid var(--tx-focus);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0s !important;
+    animation-duration: 0s !important;
+  }
+}
+
+/* ==========================================================================
+   5. Componentes
+   ========================================================================== */
+
+/* --- Cabecera: banda editorial ------------------------------------------- */
+
+.md-header {
+  color: var(--tx-header-fg);
+  background-color: var(--tx-header-bg);
+  backdrop-filter: none;
+  border-bottom: var(--tx-rule) solid var(--tx-header-rule);
+}
+
+.md-header__inner {
+  min-height: 3.2rem;
+}
+
+.md-header .md-header__button,
+.md-header .md-source,
+.md-header .md-header__option .md-icon {
+  color: var(--tx-header-fg);
+}
+
+.md-header__title {
+  height: 3.2rem;
+  line-height: 1.2;
+  font-family: var(--tx-font-ui);
+}
+
+/* Los dos «temas» del título (marca y título de la página, que se alternan al
+   desplazarse) ocupan toda la altura de la banda. */
+.md-header__topic {
+  inset-block: 0;
+  align-items: center;
+}
+
+.tx-brand {
+  display: flex;
+  align-items: center;
+  gap: var(--tx-space-4);
+}
+
+.tx-brand__name {
+  font-weight: 800;
+  font-size: 1rem;
+  letter-spacing: 0.01em;
+}
+
+.tx-brand__description {
+  display: -webkit-box;
+  max-width: 20rem;
+  padding-left: var(--tx-space-4);
+  overflow: hidden;
+  font-size: 0.55rem;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  line-height: 1.35;
+  text-transform: uppercase;
+  white-space: normal;
+  color: var(--tx-header-fg-muted);
+  border-left: var(--tx-rule) solid var(--tx-header-rule);
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+
+/* Barra de navegación propia bajo la cabecera (extra.techsical.header_nav).
+   No es fija: se va al desplazar, como las pestañas de Zensical. */
+.tx-subnav {
+  font-family: var(--tx-font-ui);
+  background-color: var(--tx-surface-1);
+  border-bottom: var(--tx-rule) solid var(--tx-border);
+}
+
+.tx-subnav__list {
+  display: flex;
+  gap: var(--tx-space-6);
+  margin-block: 0;
+  padding-block: 0;
+  overflow-x: auto;
+  list-style: none;
+  scrollbar-width: none;
+}
+
+.tx-subnav__list > li {
+  flex-shrink: 0;
+}
+
+.tx-subnav__link {
+  display: block;
+  padding: var(--tx-space-3) 0 calc(var(--tx-space-3) - 2px);
+  font-size: var(--tx-size-small);
+  font-weight: 600;
+  color: var(--tx-text-secondary);
+  border-bottom: 2px solid transparent;
+  transition: color var(--tx-motion), border-color var(--tx-motion);
+}
+
+.tx-subnav__link:is(:hover, :focus-visible) {
+  color: var(--tx-primary);
+}
+
+.tx-subnav__link--active {
+  color: var(--tx-primary);
+  border-bottom-color: var(--tx-primary);
+}
+
+@media screen and (max-width: 44.9375em) {
+  .tx-brand__description {
+    display: none;
+  }
+}
+
+/* --- Menús laterales y migas: interfaz en sans ----------------------------- */
+
+.md-nav,
+.md-path,
+.md-search,
+.md-footer,
+.md-tabs {
+  font-family: var(--tx-font-ui);
+}
+
+.md-nav__link--active,
+.md-nav__item .md-nav__link--active {
+  color: var(--tx-primary);
+  font-weight: 700;
+}
+
+/* El índice lateral envuelve cada entrada en .md-typeset: que siga siendo
+   interfaz (sans, tamaño del menú). */
+.md-nav .md-typeset {
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit;
+}
+
+/* Las migas hacen de antetítulo («Guía · Instalación»), como en prensa. */
+.md-path {
+  font-size: var(--tx-size-caption);
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+/* --- Artículo ------------------------------------------------------------- */
+
+.md-content__inner {
+  max-width: var(--tx-content-max);
+}
+
+/* Sin índice lateral, el artículo (y sus migas) se centran en el espacio libre.
+   Zensical fija los márgenes con [dir=ltr] .md-sidebar--primary…: hace falta la
+   misma especificidad o más. */
+.md-path {
+  max-width: var(--tx-content-max);
+}
+
+body .md-main__inner > .md-sidebar--secondary[hidden] ~ .md-content > .md-content__inner,
+body .md-main__inner > .md-sidebar--secondary[hidden] ~ .md-content > .md-path {
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.md-typeset {
+  font-family: var(--tx-font-text);
+  font-size: var(--tx-size-body);
+  line-height: var(--tx-leading-body);
+  letter-spacing: normal;
+  font-optical-sizing: auto;
+}
+
+.md-typeset :is(h1, h2, h3, h4, h5, h6) {
+  font-family: var(--tx-font-text);
+  font-weight: 700;
+  line-height: var(--tx-leading-heading);
+  letter-spacing: -0.005em;
+  color: var(--tx-text);
+}
+
+.md-typeset h1 {
+  margin: 0 0 var(--tx-space-4);
+  font-size: var(--tx-size-h1);
+  letter-spacing: -0.015em;
+}
+
+.md-typeset h2 {
+  margin: var(--tx-space-12) 0 var(--tx-space-3);
+  font-size: var(--tx-size-h2);
+}
+
+.md-typeset h3 {
+  margin: var(--tx-space-8) 0 var(--tx-space-2);
+  font-size: var(--tx-size-h3);
+  font-weight: 600;
+}
+
+.md-typeset h4 {
+  margin: var(--tx-space-6) 0 var(--tx-space-2);
+  font-size: var(--tx-size-h4);
+  font-weight: 600;
+}
+
+.md-typeset :is(h5, h6) {
+  margin: var(--tx-space-6) 0 var(--tx-space-2);
+  font-size: var(--tx-size-h5);
+  font-weight: 600;
+  color: var(--tx-text-secondary);
+  text-transform: none;
+}
+
+.md-typeset :is(p, ul, ol, dl, blockquote) {
+  margin-block: 0 var(--tx-space-4);
+}
+
+.md-typeset a {
+  color: var(--tx-link);
+  text-decoration: underline;
+  text-decoration-color: color-mix(in oklab, var(--tx-link) 35%, transparent);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.18em;
+}
+
+.md-typeset a:is(:hover, :focus-visible) {
+  color: var(--tx-link-hover);
+  text-decoration-color: currentcolor;
+}
+
+.md-typeset .headerlink {
+  text-decoration: none;
+}
+
+/* Entradilla: primer párrafo con { .lead } (attr_list). */
+.md-typeset .lead {
+  margin-bottom: var(--tx-space-8);
+  padding-bottom: var(--tx-space-6);
+  font-size: var(--tx-size-lead);
+  font-style: italic;
+  line-height: 1.5;
+  color: var(--tx-text-secondary);
+  border-bottom: var(--tx-rule) solid var(--tx-border-strong);
+}
+
+.md-typeset blockquote {
+  padding-left: var(--tx-space-4);
+  font-style: italic;
+  color: var(--tx-text-secondary);
+  border-left: 3px solid var(--tx-border-strong);
+}
+
+.md-typeset hr {
+  margin-block: var(--tx-space-10);
+  border-bottom: var(--tx-rule) solid var(--tx-border-strong);
+}
+
+.md-typeset :is(table, .tabular, data, time) {
+  font-variant-numeric: tabular-nums;
+}
+
+/* --- Código ---------------------------------------------------------------- */
+
+.md-typeset code,
+.md-typeset kbd,
+.md-typeset pre {
+  font-family: var(--tx-font-code);
+}
+
+.md-typeset code {
+  font-size: var(--tx-size-code);
+  border-radius: var(--tx-radius);
+}
+
+.md-typeset pre > code {
+  line-height: var(--tx-leading-code);
+  border: var(--tx-rule) solid var(--tx-border);
+}
+
+/* --- Tablas: todo el ancho del artículo, en sans y con cifras alineadas ---- */
+
+.md-typeset__scrollwrap {
+  margin-inline: 0;
+}
+
+.md-typeset__table {
+  display: block;
+  padding: 0;
+}
+
+.md-typeset table:not([class]) {
+  display: table;
+  width: 100%;
+  font-family: var(--tx-font-ui);
+  font-size: var(--tx-size-small);
+  line-height: 1.45;
+  border: 0;
+  border-collapse: collapse;
+  border-top: 2px solid var(--tx-text);
+  border-bottom: 2px solid var(--tx-text);
+  border-radius: 0;
+}
+
+.md-typeset table:not([class]) th {
+  min-width: 0;
+  padding: var(--tx-space-2) var(--tx-space-3);
+  font-weight: 700;
+  color: var(--tx-text);
+  background-color: var(--tx-surface-1);
+  border-bottom: var(--tx-rule) solid var(--tx-border-strong);
+}
+
+.md-typeset table:not([class]) td {
+  padding: var(--tx-space-2) var(--tx-space-3);
+  border-top: var(--tx-rule) solid var(--tx-border);
+}
+
+.md-typeset table:not([class]) tbody tr:hover {
+  background-color: var(--tx-primary-softer);
+}
+
+/* --- Figuras: bloque centrado, nunca ampliadas ----------------------------- */
+
+.md-typeset img,
+.md-typeset svg:not(.twemoji svg, .md-icon svg, .headerlink svg) {
+  height: auto;
+}
+
+/* Imagen sola en su párrafo, o dentro de <figure>. */
+.md-typeset p > img:only-child,
+.md-typeset figure img {
+  display: block;
+  max-width: min(100%, var(--tx-figure-max));
+  margin-inline: auto;
+}
+
+.md-typeset p:has(> img:only-child) {
+  margin-block: var(--tx-space-8);
+}
+
+.md-typeset figure {
+  display: block;
+  margin: var(--tx-space-8) auto;
+  text-align: center;
+}
+
+.md-typeset figcaption {
+  max-width: var(--tx-figure-max);
+  margin: var(--tx-space-2) auto 0;
+  font-family: var(--tx-font-ui);
+  font-size: var(--tx-size-caption);
+  font-style: normal;
+  line-height: 1.45;
+  color: var(--tx-text-muted);
+}
+
+/* --- Notas (admonitions): planas, color de estado + icono ----------------- */
+
+.md-typeset :is(.admonition, details) {
+  --tx-adm-bg: var(--tx-surface-1);
+  --tx-adm-fg: var(--tx-text);
+  --tx-adm-icon: var(--tx-text-secondary);
+  padding: var(--tx-space-1) var(--tx-space-5) var(--tx-space-1);
+  font-size: 0.95em;
+  color: var(--tx-adm-fg);
+  background-color: var(--tx-adm-bg);
+  border: 0;
+  border-left: 3px solid var(--tx-adm-icon);
+  border-radius: 0 var(--tx-radius) var(--tx-radius) 0;
+  box-shadow: none;
+}
+
+.md-typeset :is(.admonition, details) > :is(.admonition-title, summary) {
+  margin-top: var(--tx-space-3);
+  font-family: var(--tx-font-ui);
+  font-size: var(--tx-size-small);
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  background: none;
+}
+
+.md-typeset :is(.admonition, details) > :is(.admonition-title, summary)::before {
+  background-color: var(--tx-adm-icon);
+}
+
+.md-typeset :is(.admonition, details) > :is(.admonition-title, summary)::after {
+  color: var(--tx-adm-icon);
+}
+
+.md-typeset :is(.note, .info, .todo) {
+  --tx-adm-bg: var(--tx-info-bg);
+  --tx-adm-fg: var(--tx-info-fg);
+  --tx-adm-icon: var(--tx-info-icon);
+}
+
+.md-typeset :is(.tip, .hint, .important, .success, .check, .done) {
+  --tx-adm-bg: var(--tx-success-bg);
+  --tx-adm-fg: var(--tx-success-fg);
+  --tx-adm-icon: var(--tx-success-icon);
+}
+
+.md-typeset :is(.warning, .caution, .attention, .question, .help, .faq) {
+  --tx-adm-bg: var(--tx-warning-bg);
+  --tx-adm-fg: var(--tx-warning-fg);
+  --tx-adm-icon: var(--tx-warning-icon);
+}
+
+.md-typeset :is(.danger, .error, .failure, .fail, .missing, .bug) {
+  --tx-adm-bg: var(--tx-danger-bg);
+  --tx-adm-fg: var(--tx-danger-fg);
+  --tx-adm-icon: var(--tx-danger-icon);
+}
+
+/* Recuadro de datos («Principales datos»): resumen, ejemplo, cita. */
+.md-typeset :is(.abstract, .summary, .tldr, .example, .quote, .cite) {
+  --tx-adm-bg: var(--tx-primary-soft);
+  --tx-adm-fg: var(--tx-text);
+  --tx-adm-icon: var(--tx-primary);
+}
+
+/* --- Listas de definiciones ---------------------------------------------- */
+
+.md-typeset dl {
+  margin-block: var(--tx-space-6);
+}
+
+.md-typeset dt {
+  margin-top: var(--tx-space-4);
+  font-weight: 700;
+  color: var(--tx-text);
+}
+
+.md-typeset dt:first-child {
+  margin-top: 0;
+}
+
+.md-typeset dd {
+  margin: var(--tx-space-1) 0 0;
+  margin-inline-start: 0;
+  padding-left: var(--tx-space-4);
+  color: var(--tx-text-secondary);
+  border-left: 2px solid var(--tx-border-strong);
+}
+
+.md-typeset dd > :last-child {
+  margin-bottom: 0;
+}
+
+/* --- Pestañas (pymdownx.tabbed) -------------------------------------------- */
+
+.md-typeset .tabbed-set {
+  margin-block: var(--tx-space-6);
+}
+
+.md-typeset .tabbed-labels {
+  box-shadow: 0 calc(-1 * var(--tx-rule)) var(--tx-border-strong) inset;
+}
+
+.md-typeset .tabbed-labels > label {
+  font-family: var(--tx-font-ui);
+  font-size: var(--tx-size-small);
+  font-weight: 600;
+  color: var(--tx-text-muted);
+}
+
+.md-typeset .tabbed-labels > label:hover {
+  color: var(--tx-primary);
+}
+
+.js .md-typeset .tabbed-labels::before {
+  height: 2px;
+  background: var(--tx-primary);
+}
+
+.md-typeset .tabbed-content {
+  padding-top: var(--tx-space-2);
+}
+
+/* --- Listas de tareas (pymdownx.tasklist) ---------------------------------- */
+
+.md-typeset .task-list-indicator::before {
+  background-color: var(--tx-border-strong);
+}
+
+.md-typeset [type="checkbox"]:checked + .task-list-indicator::before {
+  background-color: var(--tx-accent);
+}
+
+/* --- Pestañas, etiquetas, botones ----------------------------------------- */
+
+.md-typeset .tabbed-labels,
+.md-typeset .md-tag,
+.md-typeset .md-button,
+.md-typeset .tabbed-set > label {
+  font-family: var(--tx-font-ui);
+}
+
+.md-typeset .md-button {
+  padding: var(--tx-space-2) var(--tx-space-5);
+  font-size: var(--tx-size-small);
+  font-weight: 700;
+  color: var(--tx-primary);
+  text-decoration: none;
+  border: var(--tx-rule) solid currentcolor;
+  border-radius: var(--tx-radius);
+}
+
+.md-typeset .md-button--primary {
+  color: var(--tx-bg);
+  background-color: var(--tx-primary);
+  border-color: var(--tx-primary);
+}
+
+.md-typeset .md-button:is(:hover, :focus-visible) {
+  color: var(--tx-bg);
+  background-color: var(--tx-primary-hover);
+  border-color: var(--tx-primary-hover);
+}
+
+/* --- Pie: línea fina, copyright y dirección de la web -------------------- */
+
+.md-footer {
+  border-top: var(--tx-rule) solid var(--tx-border-strong);
+}
+
+.md-footer-meta {
+  background-color: var(--tx-bg);
+}
+
+.md-footer-meta.md-typeset {
+  font-family: var(--tx-font-ui);
+  font-size: var(--tx-size-caption);
+}
+
+.md-copyright,
+.md-copyright a {
+  color: var(--tx-text-muted);
+}
+
+.tx-footer__url {
+  font-weight: 700;
+  color: var(--tx-text-secondary);
+}
+
+/* --- Portada (template: home.html) ---------------------------------------- */
+
+/* En escritorio la portada no lleva menús laterales; en móvil el menú sigue en
+   el cajón de navegación. */
+@media screen and (min-width: 76.25em) {
+  .md-main__inner:has(.tx-home) > .md-sidebar {
+    display: none;
+  }
+}
+
+.tx-home .md-content__inner {
+  max-width: 1120px;
+}
+
+@media screen and (min-width: 76.25em) {
+  .tx-home .md-content__inner {
+    margin-inline: auto;
+  }
+}
+
+.tx-hero {
+  display: grid;
+  gap: var(--tx-space-10);
+  align-items: center;
+  margin: var(--tx-space-8) 0 var(--tx-space-12);
+  padding-bottom: var(--tx-space-10);
+  border-bottom: var(--tx-rule) solid var(--tx-border-strong);
+}
+
+@media screen and (min-width: 60em) {
+  .tx-hero--media {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr);
+  }
+}
+
+.md-typeset .tx-hero__title {
+  margin-bottom: var(--tx-space-4);
+  font-size: clamp(34px, 3.2vw + 14px, 52px);
+  line-height: 1.12;
+}
+
+.md-typeset .tx-hero__lead {
+  font-size: var(--tx-size-lead);
+  font-style: italic;
+  line-height: 1.5;
+  color: var(--tx-text-secondary);
+}
+
+.tx-hero__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--tx-space-3);
+  margin-top: var(--tx-space-6);
+}
+
+.tx-hero__media {
+  display: grid;
+  gap: var(--tx-space-4);
+}
+
+.tx-hero__media--pair {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  align-items: start;
+}
+
+.md-typeset .tx-hero__figure {
+  margin: 0;
+}
+
+.md-typeset .tx-hero__figure img {
+  display: block;
+  width: auto;
+  max-width: 100%;
+  margin-inline: auto;
+  border: var(--tx-rule) solid var(--tx-border);
+  border-radius: var(--tx-radius-large);
+}
+
+/* Rejilla opcional de la portada: <div class="tx-cards" markdown> con listas. */
+.md-typeset .tx-cards > ul {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
+  gap: var(--tx-space-4);
+  margin: var(--tx-space-6) 0;
+  padding: 0;
+  list-style: none;
+}
+
+.md-typeset .tx-cards > ul > li {
+  margin: 0;
+  padding: var(--tx-space-5);
+  background-color: var(--tx-surface-1);
+  border: var(--tx-rule) solid var(--tx-border);
+  border-top: 3px solid var(--tx-primary);
+  border-radius: 0 0 var(--tx-radius) var(--tx-radius);
+}
+
+.md-typeset .tx-cards > ul > li > :first-child {
+  margin-top: 0;
+}
+
+.md-typeset .tx-cards > ul > li > :last-child {
+  margin-bottom: 0;
+}
+
+/* --- Fórmulas (MathJax) ---------------------------------------------------- */
+
+.md-typeset .arithmatex {
+  overflow-x: auto;
+}
+
+.md-typeset div.arithmatex {
+  margin-block: var(--tx-space-6);
+}

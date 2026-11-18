@@ -1,0 +1,59 @@
+{#-
+  techsical: portada. Se usa con `template: home.html` en el front matter de
+  docs/index.md. Sin menús laterales; arriba, la presentación (hero) y debajo el
+  contenido de la página. El título va en el front matter, no como # en el texto.
+
+  Front matter:
+    title: Nombre
+    hero:
+      lead: Una o dos frases.
+      actions:            # botones (opcional)
+        - title: Empezar
+          url: guia/
+          primary: true
+      images:             # hasta dos imágenes del proyecto (opcional)
+        - src: assets/images/captura.png
+          alt: Texto alternativo
+          caption: Pie (opcional)
+-#}
+{% extends "base.html" %}
+
+{% block container %}
+  {% set hero = page.meta.hero | d({}, true) %}
+  {% set images = (hero.images or [])[:2] %}
+  <div class="md-content tx-home" data-md-component="content">
+    <article class="md-content__inner md-typeset">
+      <header class="tx-hero{% if images %} tx-hero--media{% endif %}">
+        <div class="tx-hero__text">
+          <h1 class="tx-hero__title">{{ page.meta.title or page.title }}</h1>
+          {% if hero.lead %}
+            <p class="tx-hero__lead">{{ hero.lead }}</p>
+          {% endif %}
+          {% if hero.actions %}
+            <div class="tx-hero__actions">
+              {% for action in hero.actions %}
+                <a href="{{ action.url | url }}"
+                   class="md-button{% if action.primary %} md-button--primary{% endif %}">
+                  {{- action.title -}}
+                </a>
+              {% endfor %}
+            </div>
+          {% endif %}
+        </div>
+        {% if images %}
+          <div class="tx-hero__media{% if images | length > 1 %} tx-hero__media--pair{% endif %}">
+            {% for image in images %}
+              <figure class="tx-hero__figure">
+                <img src="{{ image.src | url }}" alt="{{ image.alt | d('', true) | e }}" loading="lazy">
+                {% if image.caption %}
+                  <figcaption>{{ image.caption }}</figcaption>
+                {% endif %}
+              </figure>
+            {% endfor %}
+          </div>
+        {% endif %}
+      </header>
+      {{ page.content }}
+    </article>
+  </div>
+{% endblock %}

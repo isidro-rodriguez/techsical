@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 560 360" width="560" height="360" font-family="JetBrains Mono, monospace" font-size="13">
+  <title>Paleta de techsical: petróleo, verde azulado y pizarra</title>
+  <rect width="560" height="360" fill="#ffffff"/>
+  <g>
+    <rect x="30" y="30" width="160" height="200" fill="#164e63"/>
+    <rect x="200" y="30" width="160" height="200" fill="#0f766e"/>
+    <rect x="370" y="30" width="160" height="200" fill="#0f172a"/>
+    <rect x="30" y="240" width="160" height="40" fill="#d5e7ec"/>
+    <rect x="200" y="240" width="160" height="40" fill="#ccfbf1"/>
+    <rect x="370" y="240" width="160" height="40" fill="#e2e8f0"/>
+  </g>
+  <g fill="#334155">
+    <text x="30" y="310">#164E63</text><text x="200" y="310">#0F766E</text><text x="370" y="310">#0F172A</text>
+    <text x="30" y="332">primario</text><text x="200" y="332">acento</text><text x="370" y="332">texto</text>
+  </g>
+</svg>
