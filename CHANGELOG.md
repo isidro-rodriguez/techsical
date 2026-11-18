@@ -5,9 +5,20 @@ Formato de [Keep a Changelog](https://keepachangelog.com/es-ES/1.1.0/) y version
 
 ## [Sin publicar]
 
-## [0.3.1] - 2026-11-18
+## [0.4.0] - 2026-11-18
+
+### Añadido
+
+- Portada: con imágenes en el hero, el texto anterior al primer `##` (la
+  introducción) va en la columna del hero, al lado de las imágenes. Bajo el
+  hero, el texto corrido mantiene la medida del artículo (`content_max`);
+  tablas y tarjetas siguen a todo el ancho.
 
 ### Corregido
+
+- Las páginas sin índice lateral porque la web sobrescribe el bloque
+  `site_nav` (reCocina) no centraban el artículo.
+- Las etiquetas (`md-tag`) se subrayaban como enlaces y su icono apenas se veía.
 
 - Con `framed`, el título fijo del índice lateral tenía el fondo del panel en
   vez del de la página.
