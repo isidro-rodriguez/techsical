@@ -12,8 +12,11 @@ oculta el índice lateral: el artículo queda centrado.
 ## Portada
 
 `template: home.html` en el front matter de `docs/index.md`. El título, la
-entradilla, los botones y hasta dos imágenes van en el front matter; el resto
-del Markdown aparece debajo. Ver el ejemplo en el [inicio](../index.md).
+entradilla, los botones y hasta dos imágenes van en el front matter. Con
+imágenes, el texto anterior al primer `##` (la introducción) va en la columna
+del hero, al lado de ellas; el resto del Markdown aparece debajo, con el texto
+corrido a la medida del artículo y tablas y tarjetas (`tx-cards`) a todo el
+ancho. Ver el ejemplo en el [inicio](../index.md).
 
 ## Artículos
 

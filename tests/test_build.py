@@ -213,3 +213,41 @@ def test_referencia_de_la_api(demo: Path) -> None:
     # Traducción al español de las plantillas de mkdocstrings (docs_templates).
     assert "Parámetros" in html
     assert "Lanza" in html
+
+
+_PORTADA = """---
+template: home.html
+title: Prueba
+hero:
+  lead: Una frase.
+  images:
+    - src: foto.png
+      alt: Foto
+---
+
+Introducción **junto** a la imagen.
+
+## Después
+
+Texto bajo el hero.
+"""
+
+
+def test_portada_pone_la_introduccion_junto_a_las_imagenes(tmp_path: Path) -> None:
+    html = _html(_site(tmp_path, "", {"docs/index.md": _PORTADA}), "")
+    hero = html[
+        html.index('class="tx-hero') : html.index("</header>", html.index("tx-hero"))
+    ]
+    assert "Introducción <strong>junto</strong> a la imagen." in hero
+    resto = html[html.index("</header>", html.index("tx-hero")) :]
+    assert '<h2 id="despues">' in resto
+    assert "Introducción" not in resto
+
+
+def test_portada_sin_imagenes_deja_la_introduccion_debajo(tmp_path: Path) -> None:
+    sin_imagenes = _PORTADA.replace(
+        "  images:\n    - src: foto.png\n      alt: Foto\n", ""
+    )
+    html = _html(_site(tmp_path, "", {"docs/index.md": sin_imagenes}), "")
+    assert "tx-hero__intro" not in html
+    assert html.index("Introducción") > html.index("</header>", html.index("tx-hero"))

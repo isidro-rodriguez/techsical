@@ -15,12 +15,23 @@
         - src: assets/images/captura.png
           alt: Texto alternativo
           caption: Pie (opcional)
+
+  Con imágenes, el texto de la página anterior al primer ## (la introducción)
+  va en la columna del hero, al lado de las imágenes, y no a todo el ancho.
 -#}
 {% extends "base.html" %}
 
 {% block container %}
   {% set hero = page.meta.hero | d({}, true) %}
   {% set images = (hero.images or [])[:2] %}
+  {#- Introducción: lo anterior al primer <h2>, junto a las imágenes. -#}
+  {% set intro = "" %}
+  {% set body = page.content %}
+  {% if images and "<h2" in page.content %}
+    {% set parts = page.content | split("<h2", 1) | list %}
+    {% set intro = parts[0] | trim %}
+    {% set body = "<h2" ~ parts[1] %}
+  {% endif %}
   <div class="md-content tx-home" data-md-component="content">
     <article class="md-content__inner md-typeset">
       <header class="tx-hero{% if images %} tx-hero--media{% endif %}">
@@ -28,6 +39,9 @@
           <h1 class="tx-hero__title">{{ page.meta.title or page.title }}</h1>
           {% if hero.lead %}
             <p class="tx-hero__lead">{{ hero.lead }}</p>
+          {% endif %}
+          {% if intro %}
+            <div class="tx-hero__intro">{{ intro | safe }}</div>
           {% endif %}
           {% if hero.actions %}
             <div class="tx-hero__actions">
@@ -59,7 +73,7 @@
           </div>
         {% endif %}
       </header>
-      {{ page.content }}
+      {{ body | safe }}
     </article>
   </div>
 {% endblock %}

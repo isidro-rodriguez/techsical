@@ -458,7 +458,10 @@ body {
 
 @media screen and (min-width: 60em) {
   body .md-main__inner > .md-sidebar--secondary[hidden] ~ .md-content > .md-content__inner,
-  body .md-main__inner > .md-sidebar--secondary[hidden] ~ .md-content > .md-path {
+  body .md-main__inner > .md-sidebar--secondary[hidden] ~ .md-content > .md-path,
+  /* Plantillas propias que no dibujan el índice (sobrescriben el bloque site_nav). */
+  body .md-main .md-main__inner:not(:has(> .md-sidebar--secondary)) > .md-content > .md-content__inner,
+  body .md-main .md-main__inner:not(:has(> .md-sidebar--secondary)) > .md-content > .md-path {
     margin-right: auto;
     margin-left: auto;
   }
@@ -613,6 +616,12 @@ body {
 .md-typeset table:not([class]) td {
   padding: var(--tx-space-2) var(--tx-space-3);
   border-top: var(--tx-rule) solid var(--tx-border);
+}
+
+/* La primera columna suele nombrar algo (una opción, un fichero, una clave):
+   su código no se parte a mitad de palabra aunque la columna sea estrecha. */
+.md-typeset table:not([class]) td:first-child code {
+  white-space: nowrap;
 }
 
 .md-typeset table:not([class]) tbody tr:hover {
@@ -884,6 +893,17 @@ body {
   font-family: var(--tx-font-ui);
 }
 
+/* Las etiquetas ya parecen botones: sin el subrayado de los enlaces. */
+.md-typeset a.md-tag {
+  text-decoration: none;
+}
+
+/* Icono de la etiqueta con el contraste del texto secundario (Zensical usa el
+   gris de los bordes, que el tema aclara). */
+.md-typeset .md-tag-icon::before {
+  background-color: var(--tx-text-muted);
+}
+
 .md-typeset .md-button {
   padding: var(--tx-space-2) var(--tx-space-5);
   font-size: var(--tx-size-small);
@@ -982,6 +1002,24 @@ body:has(.tx-home) .md-footer__inner {
   font-style: italic;
   line-height: 1.5;
   color: var(--tx-text-secondary);
+}
+
+.md-typeset .tx-hero__intro {
+  margin-top: var(--tx-space-5);
+}
+
+.md-typeset .tx-hero__intro > :first-child {
+  margin-top: 0;
+}
+
+.md-typeset .tx-hero__intro > :last-child {
+  margin-bottom: 0;
+}
+
+/* Bajo el hero, el texto corrido de la portada mantiene la medida del artículo;
+   tablas, rejillas y figuras siguen a todo el ancho. */
+.tx-home .md-content__inner > :is(p, ul, ol, dl, blockquote, .admonition, details) {
+  max-width: var(--tx-content-max);
 }
 
 .tx-hero__actions {
