@@ -20,6 +20,9 @@ content_max = "720px"      # ancho del artículo
 figure_max = "640px"       # ancho máximo de las imágenes
 theme_color = "#164e63"    # barra del navegador (por defecto, primary)
 math = true                # fórmulas LaTeX con MathJax (requiere pymdownx.arithmatex)
+toc = false                # sin índice lateral en ninguna página
+footer_nav = true          # «anterior / siguiente» al pie (por defecto, no)
+framed = true              # el artículo en un panel sobre fondo gris
 header_nav = [
     { title = "Guía", url = "guia/" },
     { title = "API", url = "api/" },
@@ -36,6 +39,9 @@ header_nav = [
 | `content_max` | `720px` | Texto, tablas y código comparten este ancho |
 | `figure_max` | `640px` | Las imágenes nunca se amplían por encima de su tamaño |
 | `header_nav` | — | Barra de enlaces bajo la cabecera; el menú lateral sigue igual |
+| `toc` | `true` | `false` quita el índice lateral de todas las páginas y centra el artículo, como `hide: [toc]` en cada una |
+| `footer_nav` | `false` | Muestra «anterior / siguiente» al pie. La portada nunca lo lleva |
+| `framed` | `false` | El artículo va en un panel con fondo, borde y relleno propios sobre un fondo de página más oscuro. La portada no |
 | `math` | `false` | Carga MathJax desde unpkg.com; activa `pymdownx.arithmatex` con `generic = true` |
 
 !!! warning "Fuentes propias"

@@ -7,6 +7,8 @@ language: es
 font: false
 favicon: assets/favicon/favicon-32x32.png
 
+# navigation.footer (anterior/siguiente al pie) queda oculta salvo con
+# footer_nav = true en [project.extra.techsical].
 features:
   - content.code.annotate
   - content.code.copy

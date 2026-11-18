@@ -456,10 +456,12 @@ body {
   max-width: var(--tx-content-max);
 }
 
-body .md-main__inner > .md-sidebar--secondary[hidden] ~ .md-content > .md-content__inner,
-body .md-main__inner > .md-sidebar--secondary[hidden] ~ .md-content > .md-path {
-  margin-right: auto;
-  margin-left: auto;
+@media screen and (min-width: 60em) {
+  body .md-main__inner > .md-sidebar--secondary[hidden] ~ .md-content > .md-content__inner,
+  body .md-main__inner > .md-sidebar--secondary[hidden] ~ .md-content > .md-path {
+    margin-right: auto;
+    margin-left: auto;
+  }
 }
 
 .md-typeset {
@@ -848,6 +850,11 @@ body .md-main__inner > .md-sidebar--secondary[hidden] ~ .md-content > .md-path {
   .md-main__inner:has(.tx-home) > .md-sidebar {
     display: none;
   }
+}
+
+/* La portada no lleva «anterior / siguiente» aunque la web active navigation.footer. */
+body:has(.tx-home) .md-footer__inner {
+  display: none;
 }
 
 .tx-home .md-content__inner {

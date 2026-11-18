@@ -8,12 +8,25 @@
   (colores #rrggbb), font_text, font_ui, font_code (familias CSS; la web carga
   las fuentes que no traiga el tema), content_max y figure_max (anchos CSS),
   theme_color (barra del navegador), manifest y favicons (false los omite),
-  math (true carga MathJax para las fórmulas LaTeX de pymdownx.arithmatex) y
-  header_nav (ver partials/header.html).
+  math (true carga MathJax para las fórmulas LaTeX de pymdownx.arithmatex),
+  toc (false quita el índice lateral de todas las páginas), footer_nav (true
+  muestra «anterior / siguiente» al pie; por defecto no), framed (true pone el
+  artículo en un panel) y header_nav (ver partials/header.html).
 -#}
 {% set tx = config.extra.techsical | d({}, true) %}
 <link rel="stylesheet" href="{{ 'assets/stylesheets/fonts.css' | url }}">
 <link rel="stylesheet" href="{{ 'assets/stylesheets/techsical.css' | url }}">
+{#- Opciones de maquetación: hojas aparte, cargadas solo si se activan. Van en
+    <head> porque valen para toda la web (la navegación instantánea no lo cambia). -#}
+{% if tx.toc == false %}
+  <link rel="stylesheet" href="{{ 'assets/stylesheets/options/no-toc.css' | url }}">
+{% endif %}
+{% if not tx.footer_nav %}
+  <link rel="stylesheet" href="{{ 'assets/stylesheets/options/no-footer-nav.css' | url }}">
+{% endif %}
+{% if tx.framed %}
+  <link rel="stylesheet" href="{{ 'assets/stylesheets/options/framed.css' | url }}">
+{% endif %}
 {% set _ = namespace(css = "") %}
 {% for key, var in [
   ("primary", "--tx-brand-primary"),

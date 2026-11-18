@@ -144,3 +144,24 @@ def test_formulas_con_math(demo: Path) -> None:
 
 def test_sin_math_no_carga_mathjax(tmp_path: Path) -> None:
     assert "mathjax" not in _html(_site(tmp_path, ""), "")
+
+
+def test_opciones_de_maquetacion_por_defecto(demo: Path) -> None:
+    html = _html(demo, "guia/instalacion")
+    # Sin «anterior / siguiente» al pie; con índice lateral y sin panel.
+    assert "options/no-footer-nav.css" in html
+    assert "options/no-toc.css" not in html
+    assert "options/framed.css" not in html
+
+
+def test_opciones_sin_indice_con_panel_y_paso_de_pagina(tmp_path: Path) -> None:
+    site = _site(
+        tmp_path,
+        "\n[project.extra.techsical]\ntoc = false\nframed = true\nfooter_nav = true\n",
+    )
+    html = _html(site, "")
+    assert "options/no-toc.css" in html
+    assert "options/framed.css" in html
+    assert "options/no-footer-nav.css" not in html
+    for name in ("no-toc", "framed", "no-footer-nav"):
+        assert (site / f"assets/stylesheets/options/{name}.css").is_file()

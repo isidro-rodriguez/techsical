@@ -21,9 +21,12 @@ name = "techsical"
 [project.extra.techsical]
 primary = "#164e63"   # opcional: color principal
 accent = "#0f766e"    # opcional: acento
-header_nav = [        # opcional: enlaces propios de la cabecera
+header_nav = [        # opcional: barra de enlaces bajo la cabecera
     { title = "Guía", url = "guia/" },
 ]
+toc = false           # opcional: sin índice lateral en ninguna página
+framed = true         # opcional: el artículo en un panel
+footer_nav = true     # opcional: «anterior / siguiente» al pie
 ```
 
 Todas las opciones, la portada (`template: home.html`) y los tipos de página están en
