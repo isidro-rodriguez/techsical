@@ -615,6 +615,12 @@ body {
   border-top: var(--tx-rule) solid var(--tx-border);
 }
 
+/* La primera columna suele nombrar algo (una opción, un fichero, una clave):
+   su código no se parte a mitad de palabra aunque la columna sea estrecha. */
+.md-typeset table:not([class]) td:first-child code {
+  white-space: nowrap;
+}
+
 .md-typeset table:not([class]) tbody tr:hover {
   background-color: var(--tx-primary-softer);
 }

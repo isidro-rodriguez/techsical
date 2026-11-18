@@ -51,3 +51,9 @@
   background-color: transparent;
   border: 0;
 }
+
+/* El título fijo del índice lateral tapa lo que pasa por debajo con el fondo
+   de la página: con panel, ese fondo es el de fuera del panel. */
+.md-nav--secondary .md-nav__title {
+  background-color: var(--tx-frame-page);
+}

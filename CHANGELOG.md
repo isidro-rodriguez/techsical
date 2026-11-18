@@ -5,6 +5,15 @@ Formato de [Keep a Changelog](https://keepachangelog.com/es-ES/1.1.0/) y version
 
 ## [Sin publicar]
 
+## [0.3.1] - 2026-11-18
+
+### Corregido
+
+- Con `framed`, el título fijo del índice lateral tenía el fondo del panel en
+  vez del de la página.
+- El código de la primera columna de las tablas se partía a mitad de palabra
+  (`atril.tom` / `l`) cuando la columna era estrecha.
+
 ## [0.3.0] - 2026-11-18
 
 ### Añadido
