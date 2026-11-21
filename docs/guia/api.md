@@ -8,8 +8,11 @@ Ver el [ejemplo](../api/obra/hormigon.md).
 
 ## Configuración
 
+Zensical genera las páginas y el menú de la API por sí mismo (`api-autonav`);
+solo hace falta instalar el manejador de Python de mkdocstrings.
+
 ```bash
-uv add --dev mkdocstrings-python mkdocs-api-autonav
+uv add --dev mkdocstrings-python
 ```
 
 ```toml
