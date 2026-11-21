@@ -5,6 +5,13 @@ Formato de [Keep a Changelog](https://keepachangelog.com/es-ES/1.1.0/) y version
 
 ## [Sin publicar]
 
+## [0.5.0] - 2026-11-21
+
+### Cambiado
+
+- Requiere Python 3.13 o superior (antes 3.12), como el resto de proyectos; el CI ya
+  probaba 3.13 y 3.14.
+
 ## [0.4.0] - 2026-11-18
 
 ### Añadido
