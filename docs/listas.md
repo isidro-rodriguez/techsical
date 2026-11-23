@@ -6,46 +6,46 @@ Listas de definiciones, pestañas y listas de tareas: los elementos de
 
 ## Listas de definiciones
 
-Hormigón armado
-:   Hormigón con armaduras de acero que absorben las tracciones.
+Lorem ipsum
+:   Dolor sit amet, consectetur adipiscing elit.
 
-Resistencia característica (f<sub>ck</sub>)
-:   Valor de la resistencia a compresión por debajo del cual se espera, como
-    mucho, el 5 % de los resultados.
-:   Se mide en probetas cilíndricas a los 28 días.
+Sed do eiusmod (f<sub>ck</sub>)
+:   Tempor incididunt ut labore et dolore magna aliqua, ut enim ad minim
+    veniam, quis nostrud exercitation.
+:   Una segunda definición del mismo término: ullamco laboris nisi ut aliquip.
 
-Recubrimiento
-:   Distancia entre la superficie de la armadura y el paramento más próximo.
+Duis aute
+:   Irure dolor in reprehenderit in voluptate velit esse cillum dolore.
 
-    Protege el acero de la corrosión y del fuego; su valor mínimo depende de la
-    clase de exposición.
+    Un segundo párrafo dentro de la definición: excepteur sint occaecat
+    cupidatat non proident, sunt in culpa qui officia.
 
 ## Pestañas
 
-=== "Descripción"
+=== "Lorem"
 
-    La partida comprende el suministro y la puesta en obra del hormigón, el
-    vibrado y el curado durante al menos siete días.
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+    tempor incididunt ut labore et dolore magna aliqua.
 
-=== "Medición"
+=== "Ipsum"
 
-    | Elemento | Unidad | Cantidad |
+    | Lorem | Unidad | Cantidad |
     |---|---|--:|
-    | Zapatas | m³ | 24,50 |
-    | Vigas de atado | m³ | 6,80 |
+    | Ipsum | m³ | 24,50 |
+    | Dolor sit | m³ | 6,80 |
     | Total | m³ | 31,30 |
 
-=== "Normativa"
+=== "Dolor"
 
-    - Código Estructural (RD 470/2021).
-    - UNE-EN 206: especificación del hormigón.
+    - Lorem ipsum dolor sit amet.
+    - Consectetur adipiscing elit.
 
 ## Lista de tareas
 
-- [x] Replanteo de la cimentación
-- [x] Excavación y limpieza del fondo
-- [ ] Hormigón de limpieza
-    - [x] Pedido a planta
-    - [ ] Vertido y nivelación
-- [ ] Armado de zapatas
-- [ ] Inspección antes del hormigonado
+- [x] Lorem ipsum dolor
+- [x] Sit amet consectetur
+- [ ] Adipiscing elit
+    - [x] Sed do eiusmod
+    - [ ] Tempor incididunt
+- [ ] Ut labore et dolore
+- [ ] Magna aliqua

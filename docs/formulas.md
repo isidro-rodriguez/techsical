@@ -27,7 +27,7 @@ Un solo hilo de pocos nodos, en horizontal y con líneas ortogonales:
 ``` mermaid
 %%{init: {"flowchart": {"curve": "step"}}}%%
 flowchart LR
-  A[Proyecto] --> B[Licitación] --> C[Ejecución] --> D[Recepción]
+  A[Lorem] --> B[Ipsum] --> C[Dolor] --> D[Sit amet]
 ```
 
 Con ramas, en vertical:
@@ -35,11 +35,11 @@ Con ramas, en vertical:
 ``` mermaid
 %%{init: {"flowchart": {"curve": "step"}}}%%
 flowchart TD
-  A[Recepción del material] --> B{¿Cumple el pliego?}
-  B -- Sí --> C[Acopio en obra]
-  B -- No --> D[Rechazo y devolución]
-  C --> E[Ensayos de control]
-  E --> F{¿Resultados conformes?}
-  F -- Sí --> G[Puesta en obra]
+  A[Lorem ipsum] --> B{¿Dolor sit?}
+  B -- Sí --> C[Amet consectetur]
+  B -- No --> D[Adipiscing elit]
+  C --> E[Sed do eiusmod]
+  E --> F{¿Tempor?}
+  F -- Sí --> G[Incididunt ut labore]
   F -- No --> D
 ```

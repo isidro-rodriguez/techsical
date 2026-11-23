@@ -107,6 +107,8 @@ tests/                   # builds sites with the theme; WCAG contrast of the col
   the theme uses must reach WCAG AA (4.5:1 text, 3:1 large text and icons).
 - Visual changes: build the demo site and run `scripts/capturas.py`; the user reviews
   the screenshots before a release.
+- Demo filler (sample tables, lists, diagrams, admonitions) is lorem ipsum, never invented
+  realistic content such as incidents, faults or failed tests.
 
 ### Extra quality gates
 

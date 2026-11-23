@@ -59,10 +59,10 @@ Término
 !!! danger "Peligro"
     Una acción que no se puede deshacer.
 
-!!! abstract "Principales datos"
-    - Inflación interanual: 8,6 %
-    - Variación mensual: 2,4 %
-    - Acumulado anual: 8,6 %
+!!! abstract "Resumen"
+    - Lorem ipsum: 8,6 %
+    - Dolor sit amet: 2,4 %
+    - Consectetur: 8,6 %
 
 ??? question "Nota plegable"
     El contenido aparece al desplegarla.
@@ -96,20 +96,20 @@ def leer(ruta: Path) -> str:
 
 ## Tablas
 
-| Ensayo | Probeta | Carga (kN) | Tensión (MPa) | Resultado |
+| Lorem | Ipsum | Dolor (kN) | Sit (MPa) | Amet |
 |---|---|--:|--:|---|
-| Compresión | P-01 | 412,5 | 23,34 | Conforme |
-| Compresión | P-02 | 398,1 | 22,53 | Conforme |
-| Flexión | V-07 | 36,0 | 4,61 | Conforme |
-| Tracción indirecta | B-03 | 151,2 | 2,14 | No conforme |
+| Consectetur | A-01 | 412,5 | 23,34 | Adipiscing |
+| Consectetur | A-02 | 398,1 | 22,53 | Adipiscing |
+| Elit | B-07 | 36,0 | 4,61 | Adipiscing |
+| Sed do eiusmod | C-03 | 151,2 | 2,14 | Tempor |
 
 Tabla ancha, que en pantallas estrechas se desplaza en horizontal:
 
-| Parámetro | Símbolo | Unidad | Mínimo | Nominal | Máximo | Tolerancia | Norma | Observaciones |
+| Lorem | Ipsum | Dolor | Sit | Amet | Consectetur | Adipiscing | Elit | Sed do eiusmod |
 |---|---|---|--:|--:|--:|--:|---|---|
-| Resistencia característica | f<sub>ck</sub> | MPa | 25 | 30 | 35 | ±5 % | EN 206 | A 28 días |
-| Módulo de elasticidad | E<sub>cm</sub> | GPa | 30 | 33 | 36 | ±3 % | EN 1992-1-1 | Secante |
-| Coeficiente de dilatación | α | 10<sup>−6</sup>/K | 9 | 10 | 12 | — | EN 1992-1-1 | Hormigón normal |
+| Lorem ipsum dolor | f<sub>ck</sub> | MPa | 25 | 30 | 35 | ±5 % | Lorem 206 | Tempor incididunt |
+| Sit amet consectetur | E<sub>cm</sub> | GPa | 30 | 33 | 36 | ±3 % | Ipsum 1992 | Ut labore |
+| Adipiscing elit | α | 10<sup>−6</sup>/K | 9 | 10 | 12 | — | Ipsum 1992 | Dolore magna |
 
 ## Figuras
 
